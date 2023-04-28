@@ -1,18 +1,19 @@
-//
-//  TaskManagerViewController.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 28.04.2023.
-//
-
 import UIKit
+
+struct Constants{
+    static let navigationBarTitleFontSize:CGFloat = 22.0
+}
 
 class TaskManagerViewController: UIViewController {
     
-    @IBOutlet weak var taskTableView: UITableView!
+    @IBOutlet private weak var taskTableView: UITableView!
     
     private func initialSetup(){
-        Bundle.main.loadNibNamed("TaskViewController", owner: self,options: nil)
+        Bundle.main.loadNibNamed(
+            String(describing: TaskManagerViewController.self),
+            owner: self,
+            options: nil
+        )
     }
     
     private func setupNavigationBar(){
@@ -25,8 +26,8 @@ class TaskManagerViewController: UIViewController {
         customBarAppearance.backgroundColor = .clear
         
         customBarAppearance.titleTextAttributes = [
-            NSAttributedString.Key.font:UIFont.systemFont(
-                ofSize: 22,
+            NSAttributedString.Key.font: UIFont.systemFont(
+                ofSize: Constants.navigationBarTitleFontSize,
                 weight: .bold
             )
         ]
@@ -52,40 +53,46 @@ class TaskManagerViewController: UIViewController {
         
         taskTableView.register(
             UINib(
-            nibName: "TaskTableViewCell",
-            bundle: nil
+                nibName:String(describing: TaskTableViewCell.self),
+                bundle: nil
             ),
-            forCellReuseIdentifier: "taskCell")
+            forCellReuseIdentifier: TaskTableViewCell.identifier
+        )
         
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         initialSetup()
-
         setupNavigationBar()
-        
         setupTaskTableView()
-        
     }
-    
- 
-
 }
 
 extension TaskManagerViewController:UITableViewDelegate,UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+ 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier)
         
         return cell ?? UITableViewCell(frame: .zero)
         
     }
+    
+    
     
     
     

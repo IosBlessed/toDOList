@@ -1,13 +1,8 @@
-//
-//  TaskTableViewCell.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 28.04.2023.
-//
-
 import UIKit
 
 class TaskTableViewCell: UITableViewCell {
+    
+    static let identifier = "taskCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()

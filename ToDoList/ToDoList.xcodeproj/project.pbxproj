@@ -16,7 +16,7 @@
 		37BA4F3E29FBB50F006C5762 /* TaskManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */; };
 		37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */; };
 		37BA4F4329FBBE68006C5762 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */; };
-		37BA4F4629FBE38D006C5762 /* Extension + TaskManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4529FBE38D006C5762 /* Extension + TaskManagerViewController.swift */; };
+		37BA4F4629FBE38D006C5762 /* Extension+TaskManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4529FBE38D006C5762 /* Extension+TaskManagerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskManagerViewController.xib; sourceTree = "<group>"; };
 		37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
-		37BA4F4529FBE38D006C5762 /* Extension + TaskManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + TaskManagerViewController.swift"; sourceTree = "<group>"; };
+		37BA4F4529FBE38D006C5762 /* Extension+TaskManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TaskManagerViewController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +138,7 @@
 		37BA4F4429FBE370006C5762 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				37BA4F4529FBE38D006C5762 /* Extension + TaskManagerViewController.swift */,
+				37BA4F4529FBE38D006C5762 /* Extension+TaskManagerViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -216,7 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */,
-				37BA4F4629FBE38D006C5762 /* Extension + TaskManagerViewController.swift in Sources */,
+				37BA4F4629FBE38D006C5762 /* Extension+TaskManagerViewController.swift in Sources */,
 				37BA4F2029FBB3B9006C5762 /* SceneDelegate.swift in Sources */,
 				37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */,
 				37BA4F2829FBB3B9006C5762 /* ToDoList.xcdatamodeld in Sources */,

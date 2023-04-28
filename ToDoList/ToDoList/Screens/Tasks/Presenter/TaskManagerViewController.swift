@@ -7,7 +7,7 @@ struct Constants {
 final class TaskManagerViewController: UIViewController {
     
     //MARK: - Properties
-    @IBOutlet private weak var taskTableView: UITableView!{
+    @IBOutlet private weak var taskTableView: UITableView! {
         didSet{
             if demoTasks.isEmpty {
                 let backgroundView = UIImageView(

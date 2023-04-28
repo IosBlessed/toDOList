@@ -1,8 +1,5 @@
-//
-//  Constants.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 28.04.2023.
-//
+import UIKit
 
-import Foundation
+struct Constants {
+    static let navigationBarTitleFontSize: CGFloat = 22.0
+}

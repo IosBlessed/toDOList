@@ -1,8 +1,12 @@
-//
-//  TaskModel.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 28.04.2023.
-//
+import UIKit
 
-import Foundation
+enum TaskSection: String {
+    case active = "Active"
+    case completed = "Completed"
+}
+
+struct Task: Hashable {
+    let section: TaskSection
+    let title: String
+    let description: String
+}

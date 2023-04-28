@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/swift,xcode
-# Edit at https://www.toptal.com/developers/gitignore?templates=swift,xcode
-
 ### Swift ###
 # Xcode
 #
@@ -98,4 +95,3 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 .DS_Store
-# End of https://www.toptal.com/developers/gitignore/api/swift,xcode

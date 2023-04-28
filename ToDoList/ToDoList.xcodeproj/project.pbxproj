@@ -17,7 +17,9 @@
 		37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */; };
 		37BA4F4329FBBE68006C5762 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */; };
 		37BA4F4A29FBFBEF006C5762 /* tableViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */; };
-		37BA4F4E29FC001A006C5762 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4D29FC001A006C5762 /* DesignSystem.swift */; };
+		37CB666A29FC5B7A00DC231C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CB666929FC5B7A00DC231C /* Constants.swift */; };
+		37CB667129FC5CB600DC231C /* DesignedSystemFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CB667029FC5CB600DC231C /* DesignedSystemFonts.swift */; };
+		37CB667829FC5F5200DC231C /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CB667729FC5F5200DC231C /* TaskModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +35,9 @@
 		37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tableViewBackground.png; path = ToDoList/Materials/tableViewBackground.png; sourceTree = SOURCE_ROOT; };
-		37BA4F4D29FC001A006C5762 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		37CB666929FC5B7A00DC231C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		37CB667029FC5CB600DC231C /* DesignedSystemFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignedSystemFonts.swift; sourceTree = "<group>"; };
+		37CB667729FC5F5200DC231C /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,92 +70,126 @@
 		37BA4F1C29FBB3B9006C5762 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				37BA4F3A29FBB4AC006C5762 /* Sources */,
-				37BA4F3929FBB483006C5762 /* Materials */,
-				37BA4F3429FBB441006C5762 /* Screens */,
+				37CB666829FC5B4900DC231C /* Classes */,
+				37CB667229FC5DAE00DC231C /* Models */,
+				37CB667429FC5DCD00DC231C /* Views */,
+				37CB667329FC5DBB00DC231C /* Controllers */,
+				37CB667A29FC610E00DC231C /* Xib */,
+				37CB666D29FC5BD200DC231C /* Resources */,
+				37CB666C29FC5BBB00DC231C /* Protocols */,
+				37CB666E29FC5C1F00DC231C /* Tools */,
+				37CB666B29FC5BB400DC231C /* Extensions */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
 		};
-		37BA4F3429FBB441006C5762 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				37BA4F3529FBB44C006C5762 /* Tasks */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		37BA4F3529FBB44C006C5762 /* Tasks */ = {
-			isa = PBXGroup;
-			children = (
-				37BA4F3829FBB467006C5762 /* Presenter */,
-				37BA4F3729FBB460006C5762 /* Model */,
-				37BA4F3629FBB459006C5762 /* View */,
-			);
-			path = Tasks;
-			sourceTree = "<group>";
-		};
-		37BA4F3629FBB459006C5762 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		37BA4F3729FBB460006C5762 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		37BA4F3829FBB467006C5762 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				37BA4F3B29FBB50F006C5762 /* TaskManagerViewController.swift */,
-				37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */,
-				37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */,
-				37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		37BA4F3929FBB483006C5762 /* Materials */ = {
-			isa = PBXGroup;
-			children = (
-				37BA4F4C29FC0006006C5762 /* Design */,
-				37BA4F4729FBFBDC006C5762 /* images */,
-				37BA4F2929FBB3B9006C5762 /* Assets.xcassets */,
-				37BA4F2E29FBB3B9006C5762 /* Info.plist */,
-				37BA4F2B29FBB3B9006C5762 /* LaunchScreen.storyboard */,
-			);
-			path = Materials;
-			sourceTree = "<group>";
-		};
-		37BA4F3A29FBB4AC006C5762 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				37BA4F2629FBB3B9006C5762 /* ToDoList.xcdatamodeld */,
-				37BA4F1F29FBB3B9006C5762 /* SceneDelegate.swift */,
-				37BA4F1D29FBB3B9006C5762 /* AppDelegate.swift */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		37BA4F4729FBFBDC006C5762 /* images */ = {
+		37BA4F4729FBFBDC006C5762 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */,
 			);
-			path = images;
+			path = Images;
 			sourceTree = "<group>";
 		};
-		37BA4F4C29FC0006006C5762 /* Design */ = {
+		37CB666829FC5B4900DC231C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				37BA4F4D29FC001A006C5762 /* DesignSystem.swift */,
+				37BA4F1D29FBB3B9006C5762 /* AppDelegate.swift */,
+				37BA4F1F29FBB3B9006C5762 /* SceneDelegate.swift */,
+				37CB666929FC5B7A00DC231C /* Constants.swift */,
 			);
-			path = Design;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		37CB666B29FC5BB400DC231C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		37CB666C29FC5BBB00DC231C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		37CB666D29FC5BD200DC231C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				37CB666F29FC5C9F00DC231C /* Fonts */,
+				37BA4F4729FBFBDC006C5762 /* Images */,
+				37BA4F2B29FBB3B9006C5762 /* LaunchScreen.storyboard */,
+				37BA4F2929FBB3B9006C5762 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		37CB666E29FC5C1F00DC231C /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				37BA4F2629FBB3B9006C5762 /* ToDoList.xcdatamodeld */,
+				37BA4F2E29FBB3B9006C5762 /* Info.plist */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		37CB666F29FC5C9F00DC231C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				37CB667029FC5CB600DC231C /* DesignedSystemFonts.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		37CB667229FC5DAE00DC231C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37CB667729FC5F5200DC231C /* TaskModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		37CB667329FC5DBB00DC231C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				37CB667529FC5E4700DC231C /* TaskManager */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		37CB667429FC5DCD00DC231C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				37CB667629FC5E8000DC231C /* TaskTableViewCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		37CB667529FC5E4700DC231C /* TaskManager */ = {
+			isa = PBXGroup;
+			children = (
+				37BA4F3B29FBB50F006C5762 /* TaskManagerViewController.swift */,
+			);
+			path = TaskManager;
+			sourceTree = "<group>";
+		};
+		37CB667629FC5E8000DC231C /* TaskTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */,
+			);
+			path = TaskTableViewCell;
+			sourceTree = "<group>";
+		};
+		37CB667A29FC610E00DC231C /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */,
+				37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */,
+			);
+			path = Xib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +202,7 @@
 				37BA4F1629FBB3B9006C5762 /* Sources */,
 				37BA4F1729FBB3B9006C5762 /* Frameworks */,
 				37BA4F1829FBB3B9006C5762 /* Resources */,
+				37CB666729FC512400DC231C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -222,16 +261,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37CB666729FC512400DC231C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		37BA4F1629FBB3B9006C5762 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */,
+				37CB667129FC5CB600DC231C /* DesignedSystemFonts.swift in Sources */,
 				37BA4F2029FBB3B9006C5762 /* SceneDelegate.swift in Sources */,
 				37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */,
-				37BA4F4E29FC001A006C5762 /* DesignSystem.swift in Sources */,
+				37CB666A29FC5B7A00DC231C /* Constants.swift in Sources */,
 				37BA4F2829FBB3B9006C5762 /* ToDoList.xcdatamodeld in Sources */,
+				37CB667829FC5F5200DC231C /* TaskModel.swift in Sources */,
 				37BA4F3D29FBB50F006C5762 /* TaskManagerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,7 +435,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FB8LQ6BXM4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ToDoList/Materials/Info.plist;
+				INFOPLIST_FILE = ToDoList/Tools/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
@@ -402,7 +464,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FB8LQ6BXM4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ToDoList/Materials/Info.plist;
+				INFOPLIST_FILE = ToDoList/Tools/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;

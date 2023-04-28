@@ -1,6 +1,6 @@
 import UIKit
 
-extension TaskManagerViewController:UITableViewDelegate,UITableViewDataSource{
+extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2

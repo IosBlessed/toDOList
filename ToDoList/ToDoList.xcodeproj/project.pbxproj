@@ -16,10 +16,10 @@
 		37BA4F3E29FBB50F006C5762 /* TaskManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */; };
 		37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */; };
 		37BA4F4329FBBE68006C5762 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */; };
-		37BA4F4A29FBFBEF006C5762 /* tableViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */; };
 		37CB666A29FC5B7A00DC231C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CB666929FC5B7A00DC231C /* Constants.swift */; };
 		37CB667129FC5CB600DC231C /* DesignedSystemFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CB667029FC5CB600DC231C /* DesignedSystemFonts.swift */; };
 		37CB667829FC5F5200DC231C /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CB667729FC5F5200DC231C /* TaskModel.swift */; };
+		37CB667C29FC64CF00DC231C /* tableViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CB667B29FC64CF00DC231C /* tableViewBackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,10 +34,10 @@
 		37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskManagerViewController.xib; sourceTree = "<group>"; };
 		37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
-		37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tableViewBackground.png; path = ToDoList/Materials/tableViewBackground.png; sourceTree = SOURCE_ROOT; };
 		37CB666929FC5B7A00DC231C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		37CB667029FC5CB600DC231C /* DesignedSystemFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignedSystemFonts.swift; sourceTree = "<group>"; };
 		37CB667729FC5F5200DC231C /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		37CB667B29FC64CF00DC231C /* tableViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tableViewBackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		37BA4F4729FBFBDC006C5762 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */,
+				37CB667B29FC64CF00DC231C /* tableViewBackground.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -251,7 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37BA4F4A29FBFBEF006C5762 /* tableViewBackground.png in Resources */,
+				37CB667C29FC64CF00DC231C /* tableViewBackground.png in Resources */,
 				37BA4F2D29FBB3B9006C5762 /* LaunchScreen.storyboard in Resources */,
 				37BA4F2A29FBB3B9006C5762 /* Assets.xcassets in Resources */,
 				37BA4F3E29FBB50F006C5762 /* TaskManagerViewController.xib in Resources */,

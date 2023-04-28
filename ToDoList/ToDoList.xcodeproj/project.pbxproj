@@ -16,7 +16,8 @@
 		37BA4F3E29FBB50F006C5762 /* TaskManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */; };
 		37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */; };
 		37BA4F4329FBBE68006C5762 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */; };
-		37BA4F4629FBE38D006C5762 /* Extension+TaskManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4529FBE38D006C5762 /* Extension+TaskManagerViewController.swift */; };
+		37BA4F4A29FBFBEF006C5762 /* tableViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */; };
+		37BA4F4E29FC001A006C5762 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F4D29FC001A006C5762 /* DesignSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +32,8 @@
 		37BA4F3C29FBB50F006C5762 /* TaskManagerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskManagerViewController.xib; sourceTree = "<group>"; };
 		37BA4F4029FBBE68006C5762 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		37BA4F4129FBBE68006C5762 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
-		37BA4F4529FBE38D006C5762 /* Extension+TaskManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TaskManagerViewController.swift"; sourceTree = "<group>"; };
+		37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tableViewBackground.png; path = ToDoList/Materials/tableViewBackground.png; sourceTree = SOURCE_ROOT; };
+		37BA4F4D29FC001A006C5762 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +84,6 @@
 		37BA4F3529FBB44C006C5762 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				37BA4F4429FBE370006C5762 /* Extensions */,
 				37BA4F3829FBB467006C5762 /* Presenter */,
 				37BA4F3729FBB460006C5762 /* Model */,
 				37BA4F3629FBB459006C5762 /* View */,
@@ -118,6 +119,8 @@
 		37BA4F3929FBB483006C5762 /* Materials */ = {
 			isa = PBXGroup;
 			children = (
+				37BA4F4C29FC0006006C5762 /* Design */,
+				37BA4F4729FBFBDC006C5762 /* images */,
 				37BA4F2929FBB3B9006C5762 /* Assets.xcassets */,
 				37BA4F2E29FBB3B9006C5762 /* Info.plist */,
 				37BA4F2B29FBB3B9006C5762 /* LaunchScreen.storyboard */,
@@ -135,12 +138,20 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		37BA4F4429FBE370006C5762 /* Extensions */ = {
+		37BA4F4729FBFBDC006C5762 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				37BA4F4529FBE38D006C5762 /* Extension+TaskManagerViewController.swift */,
+				37BA4F4829FBFBEF006C5762 /* tableViewBackground.png */,
 			);
-			path = Extensions;
+			path = images;
+			sourceTree = "<group>";
+		};
+		37BA4F4C29FC0006006C5762 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				37BA4F4D29FC001A006C5762 /* DesignSystem.swift */,
+			);
+			path = Design;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37BA4F4A29FBFBEF006C5762 /* tableViewBackground.png in Resources */,
 				37BA4F2D29FBB3B9006C5762 /* LaunchScreen.storyboard in Resources */,
 				37BA4F2A29FBB3B9006C5762 /* Assets.xcassets in Resources */,
 				37BA4F3E29FBB50F006C5762 /* TaskManagerViewController.xib in Resources */,
@@ -216,9 +228,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */,
-				37BA4F4629FBE38D006C5762 /* Extension+TaskManagerViewController.swift in Sources */,
 				37BA4F2029FBB3B9006C5762 /* SceneDelegate.swift in Sources */,
 				37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */,
+				37BA4F4E29FC001A006C5762 /* DesignSystem.swift in Sources */,
 				37BA4F2829FBB3B9006C5762 /* ToDoList.xcdatamodeld in Sources */,
 				37BA4F3D29FBB50F006C5762 /* TaskManagerViewController.swift in Sources */,
 			);

@@ -1,9 +1,27 @@
 import UIKit
 
 final class TaskManagerViewController: UIViewController {
-
+// MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
-
+// MARK: - Properties
+    private lazy var testSections: [TaskSection] = [
+        TaskSection(
+            status: .active,
+            tasks: [
+                TaskModel(title: "First task", description: nil),
+                TaskModel(title: "Second task", description: nil),
+                TaskModel(title: "Third task", description: nil)
+        ]),
+        TaskSection(
+            status: .completed,
+            tasks: [
+                TaskModel(title: "Fourth task", description: nil),
+                TaskModel(title: "Fifth task", description: nil),
+                TaskModel(title: "Sixth task", description: nil)
+            ]
+        )
+    ]
+// MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -35,17 +53,37 @@ final class TaskManagerViewController: UIViewController {
         )
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
+
+        tasksTableView.rowHeight = 60
+    }
+
+    private func generateTask(title: String, description: String?) -> TaskModel {
+      return TaskModel(
+        title: title,
+        description: description
+      )
     }
 }
 
 extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return testSections.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return testSections[section].status.rawValue
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return testSections[section].tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
+        let section = testSections[indexPath.section]
+        let task = section.tasks[indexPath.row]
+        cell?.taskTitle.text = task.title
         return cell ?? UITableViewCell(frame: .zero)
     }
 }

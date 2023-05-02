@@ -1,31 +1,29 @@
 import UIKit
 
 final class TaskManagerViewController: UIViewController {
+    
 // MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
+
 // MARK: - Properties
-    private lazy var testSections: [TaskSection] = [
-        TaskSection(
-            status: .active,
-            tasks: [
-                TaskModel(title: "First task", description: nil),
-                TaskModel(title: "Second task", description: nil),
-                TaskModel(title: "Third task", description: nil)
-        ]),
-        TaskSection(
-            status: .completed,
-            tasks: [
-                TaskModel(title: "Fourth task", description: nil),
-                TaskModel(title: "Fifth task", description: nil),
-                TaskModel(title: "Sixth task", description: nil)
-            ]
-        )
-    ]
+    private let storage = StorageTasks()
+    
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeStorage()
         setupNavigationBar()
         setupTaskTableView()
+    }
+    
+    private func initializeStorage() {
+        storage.addTask(status: .active, title: "First task", description: nil)
+        storage.addTask(status: .completed, title: "Second task", description: nil)
+        storage.addTask(status: .completed, title: "Third task", description: nil)
+        storage.addTask(status: .active, title: "Fourth task", description: nil)
+        storage.addTask(status: .completed, title: "Fifth task", description: nil)
+        
+        storage.setSections()
     }
 
     private func setupNavigationBar() {
@@ -54,36 +52,48 @@ final class TaskManagerViewController: UIViewController {
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
 
-        tasksTableView.rowHeight = 60
-    }
-
-    private func generateTask(title: String, description: String?) -> TaskModel {
-      return TaskModel(
-        title: title,
-        description: description
-      )
+        tasksTableView.rowHeight = Constants.taskTableViewHeightForRow
+        
     }
 }
 
 extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return testSections.count
+        return storage.getSections().count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return testSections[section].status.rawValue
+        let sections = storage.getSections()
+        let sectionTitle = sections[section].rawValue
+        return sectionTitle
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testSections[section].tasks.count
+        return getTasksBySection(section: section).count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
-        let section = testSections[indexPath.section]
-        let task = section.tasks[indexPath.row]
-        cell?.taskTitle.text = task.title
+        let tasksInSection = getTasksBySection(section: indexPath.section)
+        let task = tasksInSection[indexPath.row]
+        cell?.setupCell(title: task.title)
         return cell ?? UITableViewCell(frame: .zero)
+    }
+    
+    private func getTasksBySection(section: Int) -> [TaskModel] {
+        var tasks = [TaskModel]()
+        let section = storage.getSections()[section]
+        
+        switch section {
+        case .active:
+            tasks = storage.getActiveTasks()
+            break;
+        case .completed:
+            tasks = storage.getCompletedTasks()
+            break;
+        }
+        
+        return tasks
     }
 }

@@ -1,29 +1,25 @@
 import UIKit
 
-final class TaskManagerViewController: UIViewController {
-    
+final class TaskManagerViewController: UIViewController, TaskManagerViewControllerProtocol {
+
 // MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
 
 // MARK: - Properties
-    private let storage = StorageTasks()
-    
+    var taskManagerPresenter: TaskManagerPresenterProtocol? = TaskManagerPresenter()
+    private var sections = [TaskSection]()
+
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeStorage()
+        requestPresenterToExtractData()
         setupNavigationBar()
         setupTaskTableView()
     }
-    
-    private func initializeStorage() {
-        storage.addTask(status: .active, title: "First task", description: nil)
-        storage.addTask(status: .completed, title: "Second task", description: nil)
-        storage.addTask(status: .completed, title: "Third task", description: nil)
-        storage.addTask(status: .active, title: "Fourth task", description: nil)
-        storage.addTask(status: .completed, title: "Fifth task", description: nil)
-        
-        storage.setSections()
+
+    private func requestPresenterToExtractData() {
+        taskManagerPresenter?.taskManagerViewController = self
+        taskManagerPresenter?.requestSections()
     }
 
     private func setupNavigationBar() {
@@ -53,47 +49,36 @@ final class TaskManagerViewController: UIViewController {
         tasksTableView.delegate = self
 
         tasksTableView.rowHeight = Constants.taskTableViewHeightForRow
-        
+    }
+
+    func updateTaskManagerViewController(with sections: [TaskSection]) {
+        self.sections = sections
+    }
+
+    deinit {
+        print("\(TaskManagerViewController.self) deinitalized successfully")
     }
 }
 
 extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return storage.getSections().count
+        return sections.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sections = storage.getSections()
-        let sectionTitle = sections[section].rawValue
-        return sectionTitle
+        return sections[section].title.rawValue
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getTasksBySection(section: section).count
+        return sections[section].tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
-        let tasksInSection = getTasksBySection(section: indexPath.section)
-        let task = tasksInSection[indexPath.row]
+        let section = sections[indexPath.section]
+        let task = section.tasks[indexPath.row]
         cell?.setupCell(title: task.title)
         return cell ?? UITableViewCell(frame: .zero)
-    }
-    
-    private func getTasksBySection(section: Int) -> [TaskModel] {
-        var tasks = [TaskModel]()
-        let section = storage.getSections()[section]
-        
-        switch section {
-        case .active:
-            tasks = storage.getActiveTasks()
-            break;
-        case .completed:
-            tasks = storage.getCompletedTasks()
-            break;
-        }
-        
-        return tasks
     }
 }

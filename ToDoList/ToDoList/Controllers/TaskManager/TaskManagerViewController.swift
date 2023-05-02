@@ -34,7 +34,7 @@ final class TaskManagerViewController: UIViewController {
                 nibName: String(describing: TaskTableViewCell.self),
                 bundle: nil
             ),
-            forCellReuseIdentifier: TaskTableViewCell.identifier
+            forCellReuseIdentifier: String(describing: TaskTableViewCell.self)
         )
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
@@ -48,7 +48,7 @@ extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TaskTableViewCell.self))
         return cell ?? UITableViewCell(frame: .zero)
     }
 }

@@ -1,8 +1,16 @@
-//
-//  TaskManagerPresenter.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 02.05.2023.
-//
+final class TaskManagerPresenter: TaskManagerPresenterProtocol {
 
-import Foundation
+    weak var taskManagerViewController: TaskManagerViewControllerProtocol?
+
+    private var storage: StorageTasks? = StorageTasks()
+
+    func requestSections() {
+        guard let sections = storage?.getSections() else {return}
+        taskManagerViewController?.updateTaskManagerViewController(with: sections)
+    }
+
+    deinit {
+        print("\(TaskManagerPresenter.self) deinitialized successfully")
+    }
+
+}

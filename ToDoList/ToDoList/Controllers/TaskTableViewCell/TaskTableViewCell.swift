@@ -14,7 +14,7 @@ class TaskTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     func setupCell(title: String) {
         taskTitle.text = title
     }

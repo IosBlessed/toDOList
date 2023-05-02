@@ -1,16 +1,17 @@
 import UIKit
 
-enum TaskSectionStatus: String {
+enum TaskStatus: String, CaseIterable {
     case active = "Active"
     case completed = "Completed"
 }
 
 struct TaskSection: Hashable {
-    let status: TaskSectionStatus
+    let title: TaskStatus
     let tasks: [TaskModel]
 }
 
 struct TaskModel: Hashable {
+    let status: TaskStatus
     let title: String
     let description: String?
 }

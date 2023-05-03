@@ -1,9 +1,10 @@
-protocol TaskManagerPresenterProtocol: AnyObject {
-    var taskManagerViewController: TaskManagerViewControllerProtocol? {get set}
+protocol TaskManagerPresenter: AnyObject {
+    var taskManagerViewController: TaskManagerViewController? {get set}
+    var storage: Storage? {get set}
     func requestSections()
 }
 
-protocol TaskManagerViewControllerProtocol: AnyObject {
-    var taskManagerPresenter: TaskManagerPresenterProtocol? {get set}
+protocol TaskManagerViewController: AnyObject {
+    var taskManagerPresenter: TaskManagerPresenter? {get set}
     func updateTaskManagerViewController(with sections: [TaskSection])
 }

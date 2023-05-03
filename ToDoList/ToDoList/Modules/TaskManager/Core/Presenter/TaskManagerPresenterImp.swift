@@ -12,6 +12,6 @@ final class TaskManagerPresenterImp: TaskManagerPresenter {
     
     func requestSections() {
         guard let sections = storage.getSections() else {return}
-        view?.updateTaskManagerViewController(with: sections)
+        view?.updateTasksList(with: sections)
     }
 }

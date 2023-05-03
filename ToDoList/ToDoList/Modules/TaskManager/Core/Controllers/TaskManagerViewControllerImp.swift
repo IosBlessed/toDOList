@@ -47,7 +47,7 @@ final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewContr
         tasksTableView.separatorStyle = .none
     }
 
-    func updateTaskManagerViewController(with sections: [TaskSection]) {
+    func updateTasksList(with sections: [TaskSection]) {
         self.sections = sections
         self.tasksTableView.reloadData()
     }

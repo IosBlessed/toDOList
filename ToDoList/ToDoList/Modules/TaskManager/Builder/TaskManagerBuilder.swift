@@ -4,8 +4,6 @@ final class TaskManagerBuilder {
 
     static let shared = TaskManagerBuilder()
 
-    private init() {}
-
     func buildTaskManager() -> TaskManagerViewControllerImp {
         let storage = StorageImp()
         let taskManagerVC = TaskManagerViewControllerImp(

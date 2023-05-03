@@ -1,8 +1,4 @@
-//
-//  ViewControllerProtocol.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 03.05.2023.
-//
-
-import Foundation
+protocol TaskManagerViewController: AnyObject {
+    var presenter: TaskManagerPresenter? {get set}
+    func updateTaskManagerViewController(with sections: [TaskSection])
+}

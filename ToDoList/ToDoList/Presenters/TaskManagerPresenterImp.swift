@@ -1,6 +1,6 @@
-final class TaskManagerPresenter: TaskManagerPresenterProtocol {
+final class TaskManagerPresenterImp: TaskManagerPresenterProtocol {
 
-    weak var taskManagerViewController: TaskManagerViewControllerProtocol?
+    weak var taskManagerViewController: TaskManagerViewController?
 
     private var storage: StorageTasks? = StorageTasks()
 
@@ -8,9 +8,4 @@ final class TaskManagerPresenter: TaskManagerPresenterProtocol {
         guard let sections = storage?.getSections() else {return}
         taskManagerViewController?.updateTaskManagerViewController(with: sections)
     }
-
-    deinit {
-        print("\(TaskManagerPresenter.self) deinitialized successfully")
-    }
-
 }

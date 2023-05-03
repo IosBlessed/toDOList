@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let taskViewController = TaskManagerBuilder.shared.buildTaskManager()
         let taskNavigationController = UINavigationController(
-            rootViewController: taskViewController ?? UIViewController()
+            rootViewController: taskViewController
         )
         window.rootViewController = taskNavigationController
         window.makeKeyAndVisible()

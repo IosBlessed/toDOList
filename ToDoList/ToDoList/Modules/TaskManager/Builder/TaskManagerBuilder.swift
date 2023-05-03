@@ -6,7 +6,7 @@ final class TaskManagerBuilder {
 
     private init() {}
 
-    func buildTaskManager() -> TaskManagerViewControllerImp? {
+    func buildTaskManager() -> TaskManagerViewControllerImp {
         let storage = StorageImp()
         let taskManagerVC = TaskManagerViewControllerImp(
             nibName: String(describing: TaskManagerViewControllerImp.self),

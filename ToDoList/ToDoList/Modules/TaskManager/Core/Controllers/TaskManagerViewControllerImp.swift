@@ -6,7 +6,7 @@ final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewContr
     @IBOutlet private weak var tasksTableView: UITableView!
 
 // MARK: - Properties
-    weak var taskManagerPresenter: TaskManagerPresenter?
+    var presenter: TaskManagerPresenter?
     private var sections = [TaskSection]()
 
 // MARK: - Lifecycle
@@ -18,7 +18,7 @@ final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewContr
     }
 
     private func requestPresenterToExtractData() {
-        taskManagerPresenter?.requestSections()
+        presenter?.requestSections()
     }
 
     private func setupNavigationBar() {

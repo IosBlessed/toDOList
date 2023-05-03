@@ -1,8 +1,5 @@
-//
-//  PresenterProtocol.swift
-//  ToDoList
-//
-//  Created by Никита Данилович on 03.05.2023.
-//
-
-import Foundation
+protocol TaskManagerPresenter: AnyObject {
+    var view: TaskManagerViewController? {get set}
+    var storage: Storage {get set}
+    func requestSections()
+}

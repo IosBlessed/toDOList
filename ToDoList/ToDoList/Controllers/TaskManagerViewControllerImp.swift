@@ -1,12 +1,12 @@
 import UIKit
 
-final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewControllerProtocol {
+final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewController {
 
 // MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
 
 // MARK: - Properties
-    weak var taskManagerPresenter: TaskManagerPresenterProtocol?
+    weak var taskManagerPresenter: TaskManagerPresenter?
     private var sections = [TaskSection]()
 
 // MARK: - Lifecycle
@@ -70,7 +70,7 @@ extension TaskManagerViewControllerImp: UITableViewDelegate, UITableViewDataSour
         cell?.setupCell(title: task.title)
         return cell ?? UITableViewCell(frame: .zero)
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TaskTableViewHeaderFooterView.identifier
@@ -78,14 +78,14 @@ extension TaskManagerViewControllerImp: UITableViewDelegate, UITableViewDataSour
         headerView?.sectionTitle.text = sections[section].title.rawValue
         return headerView
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TaskTableViewHeaderFooterView.identifier
         ) as? TaskTableViewHeaderFooterView
         return footerView
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let customCell = cell as? TaskTableViewCell
         let section = sections[indexPath.section]

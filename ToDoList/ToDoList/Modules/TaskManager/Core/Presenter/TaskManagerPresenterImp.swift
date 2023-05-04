@@ -2,7 +2,7 @@ import UIKit
 
 final class TaskManagerPresenterImp: TaskManagerPresenter {
 
-    weak var view: TaskManagerViewController?
+    private var view: TaskManagerViewController?
     var storage: Storage
 
     init(viewController: TaskManagerViewController, storage: Storage) {
@@ -11,7 +11,7 @@ final class TaskManagerPresenterImp: TaskManagerPresenter {
     }
     
     func requestSections() {
-        guard let sections = storage.getSections() else {return}
+        guard let sections = storage.getSections() else { return }
         view?.updateTasksList(with: sections)
     }
 }

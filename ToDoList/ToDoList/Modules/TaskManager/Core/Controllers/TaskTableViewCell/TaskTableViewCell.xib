@@ -17,25 +17,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVI-cL-rpk">
-                        <rect key="frame" x="40" y="5" width="275" height="50"/>
-                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
-                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVI-cL-rpk">
+                        <rect key="frame" x="46" y="9" width="259" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <attributedString key="attributedText">
+                            <fragment content="Title">
+                                <attributes>
+                                    <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <font key="NSFont" metaFont="system" size="16"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqx-EQ-HWE">
+                        <rect key="frame" x="46" y="33" width="259" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qop-Gq-nRz">
+                        <rect key="frame" x="14" y="23" width="24" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.83137254900000002" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title=""/>
+                    </button>
                 </subviews>
-                <constraints>
-                    <constraint firstAttribute="trailing" secondItem="eVI-cL-rpk" secondAttribute="trailing" constant="5" id="8Jn-mB-wY7"/>
-                    <constraint firstAttribute="bottom" secondItem="eVI-cL-rpk" secondAttribute="bottom" constant="5" id="Lz9-Tc-RNo"/>
-                    <constraint firstItem="eVI-cL-rpk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="U7X-1Z-Xps"/>
-                    <constraint firstItem="eVI-cL-rpk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="VHC-YI-zHy"/>
-                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="statusButton" destination="qop-Gq-nRz" id="ELG-Ef-nxI"/>
+                <outlet property="taskDescription" destination="eqx-EQ-HWE" id="xlJ-64-Wd3"/>
                 <outlet property="taskTitle" destination="eVI-cL-rpk" id="cv6-ii-TjD"/>
             </connections>
-            <point key="canvasLocation" x="139" y="20"/>
+            <point key="canvasLocation" x="138.93129770992365" y="19.718309859154932"/>
         </tableViewCell>
     </objects>
 </document>

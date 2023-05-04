@@ -1,14 +1,8 @@
 import UIKit
 
-protocol Storage: AnyObject {
-    var sections: [TaskSection]? {get set}
-    func addTask(status: TaskStatus, title: String, description: String?)
-    func getSections() -> [TaskSection]?
-}
-
 class StorageImp: Storage {
 
-    var sections: [TaskSection]? = [TaskSection]()
+    private var sections: [TaskSection]? = [TaskSection]()
     private var activeTasks = [TaskModel]()
     private var completedTasks = [TaskModel]()
 
@@ -31,7 +25,6 @@ class StorageImp: Storage {
     }
 
     func getSections() -> [TaskSection]? {
-        guard let sections = sections else {return nil}
         return sections
     }
 

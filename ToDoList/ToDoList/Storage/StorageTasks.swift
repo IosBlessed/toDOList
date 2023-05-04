@@ -1,17 +1,17 @@
 import UIKit
 
-class StorageImp: Storage {
+class Storage: StorageInterface {
 
-    private var sections: [TaskSection]? = [TaskSection]()
-    private var activeTasks = [TaskModel]()
-    private var completedTasks = [TaskModel]()
+    private var sections: [TaskSection]? = []
+    private var activeTasks = [TaskItem]()
+    private var completedTasks = [TaskItem]()
 
     func addTask(status: TaskStatus, title: String, description: String?) {
         switch status {
         case .active:
-            activeTasks.append(TaskModel(status: status, title: title, description: description))
+            activeTasks.append(TaskItem(status: status, title: title, description: description))
         case .completed:
-            completedTasks.append(TaskModel(status: status, title: title, description: description))
+            completedTasks.append(TaskItem(status: status, title: title, description: description))
         }
     }
 
@@ -29,8 +29,12 @@ class StorageImp: Storage {
     }
 
     init() {
-        addTask(status: .active, title: "First task", description: nil)
-        addTask(status: .completed, title: "Second task", description: nil)
+        addTask(status: .active, title: "First task", description: "First task desriptional for testing")
+        addTask(
+            status: .completed,
+            title: "Second task",
+            description: "Second task has to be done till the end of the day."
+        )
         addTask(status: .completed, title: "Third task", description: nil)
         addTask(status: .active, title: "Fourth task", description: nil)
         addTask(status: .completed, title: "Fifth task", description: nil)

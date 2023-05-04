@@ -23,7 +23,7 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
 
     private func setupNavigationBar() {
         title = "Task Manager"
-
+        
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.extendedLayoutIncludesOpaqueBars = true
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -67,8 +67,16 @@ extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
         let section = sections[indexPath.section]
         let task = section.tasks[indexPath.row]
-        cell?.setupCell(title: task.title)
+        cell?.setupCell(task: task)
         return cell ?? UITableViewCell(frame: .zero)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let section = sections[indexPath.section]
+        let task = section.tasks[indexPath.row]
+        guard task.description != nil else { return tableView.rowHeight }
+        let cellHeight = tableView.rowHeight + 30.0
+        return cellHeight
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -77,13 +85,6 @@ extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource 
         ) as? TaskTableViewHeaderFooterView
         headerView?.sectionTitle.text = sections[section].title.rawValue
         return headerView
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: TaskTableViewHeaderFooterView.identifier
-        ) as? TaskTableViewHeaderFooterView
-        return footerView
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

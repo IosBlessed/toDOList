@@ -2,10 +2,10 @@ import UIKit
 
 final class TaskManagerPresenter: TaskManagerPresenterInterface {
 
-    private var view: TaskManagerViewController?
-    var storage: Storage
+    private var view: TaskManagerViewControllerInterface?
+    var storage: StorageInterface
 
-    init(viewController: TaskManagerViewController, storage: Storage) {
+    init(viewController: TaskManagerViewControllerInterface, storage: StorageInterface) {
         self.view = viewController
         self.storage = storage
     }

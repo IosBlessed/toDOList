@@ -1,6 +1,6 @@
 import UIKit
 
-final class TaskManagerPresenterImp: TaskManagerPresenter {
+final class TaskManagerPresenter: TaskManagerPresenterInterface {
 
     private var view: TaskManagerViewController?
     var storage: Storage

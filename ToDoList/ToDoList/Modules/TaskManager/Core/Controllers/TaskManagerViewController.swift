@@ -1,12 +1,12 @@
 import UIKit
 
-final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewController {
+final class TaskManagerViewController: UIViewController, TaskManagerViewControllerInterface {
 
 // MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
 
 // MARK: - Properties
-    var presenter: TaskManagerPresenter?
+    var presenter: TaskManagerPresenterInterface?
     private var sections = [TaskSection]()
 
 // MARK: - Lifecycle
@@ -53,7 +53,7 @@ final class TaskManagerViewControllerImp: UIViewController, TaskManagerViewContr
     }
 }
 
-extension TaskManagerViewControllerImp: UITableViewDelegate, UITableViewDataSource {
+extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count

@@ -7,10 +7,10 @@ enum TaskStatus: String, CaseIterable {
 
 struct TaskSection: Hashable {
     let title: TaskStatus
-    let tasks: [TaskModel]
+    let tasks: [TaskItem]
 }
 
-struct TaskModel: Hashable {
+struct TaskItem: Hashable {
     let status: TaskStatus
     let title: String
     let description: String?

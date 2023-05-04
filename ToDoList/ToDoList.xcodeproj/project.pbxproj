@@ -10,7 +10,7 @@
 		37B54F342A02712B0064172C /* TaskManagerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F332A02712B0064172C /* TaskManagerBuilder.swift */; };
 		37B54F3C2A02AD0F0064172C /* TaskManagerViewControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F3B2A02AD0F0064172C /* TaskManagerViewControllerInterface.swift */; };
 		37B54F3F2A02AD400064172C /* TaskManagerPresenterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F3E2A02AD400064172C /* TaskManagerPresenterInterface.swift */; };
-		37B54F422A03861C0064172C /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F412A03861C0064172C /* StorageProtocol.swift */; };
+		37B54F422A03861C0064172C /* StorageInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F412A03861C0064172C /* StorageInterface.swift */; };
 		37B54F492A03BCA40064172C /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37B54F472A03BCA40064172C /* SF-Pro-Display-Bold.otf */; };
 		37B54F4A2A03BCA40064172C /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 37B54F482A03BCA40064172C /* SF-Pro-Display-Regular.otf */; };
 		37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F1D29FBB3B9006C5762 /* AppDelegate.swift */; };
@@ -35,7 +35,7 @@
 		37B54F332A02712B0064172C /* TaskManagerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerBuilder.swift; sourceTree = "<group>"; };
 		37B54F3B2A02AD0F0064172C /* TaskManagerViewControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerViewControllerInterface.swift; sourceTree = "<group>"; };
 		37B54F3E2A02AD400064172C /* TaskManagerPresenterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerPresenterInterface.swift; sourceTree = "<group>"; };
-		37B54F412A03861C0064172C /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
+		37B54F412A03861C0064172C /* StorageInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageInterface.swift; sourceTree = "<group>"; };
 		37B54F472A03BCA40064172C /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		37B54F482A03BCA40064172C /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		37BA4F1A29FBB3B9006C5762 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,7 +131,7 @@
 		37B54F402A0386090064172C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				37B54F412A03861C0064172C /* StorageProtocol.swift */,
+				37B54F412A03861C0064172C /* StorageInterface.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -371,7 +371,7 @@
 				37B54F3C2A02AD0F0064172C /* TaskManagerViewControllerInterface.swift in Sources */,
 				37F3C8C72A01469C005E92D1 /* TaskManagerPresenter.swift in Sources */,
 				37B54F3F2A02AD400064172C /* TaskManagerPresenterInterface.swift in Sources */,
-				37B54F422A03861C0064172C /* StorageProtocol.swift in Sources */,
+				37B54F422A03861C0064172C /* StorageInterface.swift in Sources */,
 				37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */,
 				37F3C8C42A013A7E005E92D1 /* StorageTasks.swift in Sources */,
 				37F3C8D02A023E46005E92D1 /* TaskTableViewHeaderFooterView.swift in Sources */,

@@ -10,6 +10,7 @@
 		37B54F342A02712B0064172C /* TaskManagerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F332A02712B0064172C /* TaskManagerBuilder.swift */; };
 		37B54F3C2A02AD0F0064172C /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F3B2A02AD0F0064172C /* ViewControllerProtocol.swift */; };
 		37B54F3F2A02AD400064172C /* PresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F3E2A02AD400064172C /* PresenterProtocol.swift */; };
+		37B54F422A03861C0064172C /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B54F412A03861C0064172C /* StorageProtocol.swift */; };
 		37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F1D29FBB3B9006C5762 /* AppDelegate.swift */; };
 		37BA4F2029FBB3B9006C5762 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F1F29FBB3B9006C5762 /* SceneDelegate.swift */; };
 		37BA4F2829FBB3B9006C5762 /* ToDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37BA4F2629FBB3B9006C5762 /* ToDoList.xcdatamodeld */; };
@@ -32,6 +33,7 @@
 		37B54F332A02712B0064172C /* TaskManagerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerBuilder.swift; sourceTree = "<group>"; };
 		37B54F3B2A02AD0F0064172C /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
 		37B54F3E2A02AD400064172C /* PresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterProtocol.swift; sourceTree = "<group>"; };
+		37B54F412A03861C0064172C /* StorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocol.swift; sourceTree = "<group>"; };
 		37BA4F1A29FBB3B9006C5762 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37BA4F1D29FBB3B9006C5762 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37BA4F1F29FBB3B9006C5762 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +92,6 @@
 		37B54F372A02ABA60064172C /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
-				37CB666E29FC5C1F00DC231C /* Storage */,
 				37B54F382A02ABFD0064172C /* Core */,
 				37B54F312A0270F00064172C /* Builder */,
 			);
@@ -123,6 +124,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		37B54F402A0386090064172C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				37B54F412A03861C0064172C /* StorageProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		37BA4F1129FBB3B9006C5762 = {
 			isa = PBXGroup;
 			children = (
@@ -142,8 +151,9 @@
 		37BA4F1C29FBB3B9006C5762 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				37CB666829FC5B4900DC231C /* Classes */,
 				37B54F352A02AB8B0064172C /* Modules */,
+				37CB666829FC5B4900DC231C /* Classes */,
+				37CB666E29FC5C1F00DC231C /* Storage */,
 				37CB666D29FC5BD200DC231C /* Resources */,
 				37CB666B29FC5BB400DC231C /* Extensions */,
 			);
@@ -189,6 +199,7 @@
 		37CB666E29FC5C1F00DC231C /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				37B54F402A0386090064172C /* Protocols */,
 				37F3C8C32A013A7E005E92D1 /* StorageTasks.swift */,
 				37BA4F2629FBB3B9006C5762 /* ToDoList.xcdatamodeld */,
 				37BA4F2E29FBB3B9006C5762 /* Info.plist */,
@@ -352,6 +363,7 @@
 				37B54F3C2A02AD0F0064172C /* ViewControllerProtocol.swift in Sources */,
 				37F3C8C72A01469C005E92D1 /* TaskManagerPresenterImp.swift in Sources */,
 				37B54F3F2A02AD400064172C /* PresenterProtocol.swift in Sources */,
+				37B54F422A03861C0064172C /* StorageProtocol.swift in Sources */,
 				37BA4F4229FBBE68006C5762 /* TaskTableViewCell.swift in Sources */,
 				37F3C8C42A013A7E005E92D1 /* StorageTasks.swift in Sources */,
 				37F3C8D02A023E46005E92D1 /* TaskTableViewHeaderFooterView.swift in Sources */,
@@ -499,7 +511,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FB8LQ6BXM4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ToDoList/Modules/TaskManager/Core/Storage/Info.plist;
+				INFOPLIST_FILE = ToDoList/Storage/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
@@ -528,7 +540,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FB8LQ6BXM4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ToDoList/Modules/TaskManager/Core/Storage/Info.plist;
+				INFOPLIST_FILE = ToDoList/Storage/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;

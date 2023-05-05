@@ -30,7 +30,6 @@ class TaskTableViewCell: UITableViewCell {
     }()
     private lazy var separatorCell: UIView = {
         let separator = UIView(frame: .zero)
-        separator.translatesAutoresizingMaskIntoConstraints = false
         separator.layer.backgroundColor = DesignedSystemColors.separatorTableViewCellColor
         separator.layer.masksToBounds = true
         separator.layer.cornerRadius = 2
@@ -46,8 +45,7 @@ class TaskTableViewCell: UITableViewCell {
     func setupCell(task: TaskItem) {
         self.task = task
         setupItemsBasedOnStatus()
-        configurePermamentViews()
-        configureTemporaryViews()
+        configureViews()
     }
 
     private func setupItemsBasedOnStatus() {
@@ -78,51 +76,41 @@ class TaskTableViewCell: UITableViewCell {
             statusButton.backgroundColor = DesignedSystemColors.accent
         }
         taskTitle.attributedText = attributedString
+        taskDescription.attributedText = NSAttributedString(
+            string: task.description ?? "",
+            attributes: [
+                NSAttributedString.Key.font: DesignedSystemFonts.subtitle,
+                NSAttributedString.Key.foregroundColor: DesignedSystemColors.textSubtitle
+            ]
+        )
     }
 
-    private func configurePermamentViews() {
+    private func configureViews() {
         self.addSubview(separatorCell)
-        taskTitle.translatesAutoresizingMaskIntoConstraints = false
         statusButton.translatesAutoresizingMaskIntoConstraints = false
+        taskTitle.translatesAutoresizingMaskIntoConstraints = false
+        taskDescription.translatesAutoresizingMaskIntoConstraints = false
+        separatorCell.translatesAutoresizingMaskIntoConstraints = false
 
         statusButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         statusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
         statusButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
         statusButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
 
-        taskTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10).isActive = true
+        taskTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16).isActive = true
         taskTitle.leadingAnchor.constraint(equalTo: statusButton.trailingAnchor, constant: 16).isActive = true
         taskTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
         taskTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
-
-        separatorCell.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separatorCell.leadingAnchor.constraint(equalTo: taskTitle.leadingAnchor).isActive = true
-        separatorCell.trailingAnchor.constraint(equalTo: taskTitle.trailingAnchor).isActive = true
-        separatorCell.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-    }
-
-    private func configureTemporaryViews() {
-        guard let description = task.description else {
-            taskDescription.isHidden = true
-            return
-        }
-        taskDescription.attributedText = NSAttributedString(
-            string: description,
-            attributes: [
-                NSAttributedString.Key.font: DesignedSystemFonts.subtitle,
-                NSAttributedString.Key.foregroundColor: DesignedSystemColors.textSubtitle
-            ]
-        )
-        configureDescription()
-    }
-
-    private func configureDescription() {
-        taskDescription.translatesAutoresizingMaskIntoConstraints = false
 
         taskDescription.topAnchor.constraint(equalTo: taskTitle.bottomAnchor, constant: 4).isActive = true
         taskDescription.leadingAnchor.constraint(equalTo: taskTitle.leadingAnchor).isActive = true
         taskDescription.trailingAnchor.constraint(equalTo: taskTitle.trailingAnchor).isActive = true
         taskDescription.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16).isActive = true
+
+        separatorCell.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        separatorCell.leadingAnchor.constraint(equalTo: taskTitle.leadingAnchor).isActive = true
+        separatorCell.trailingAnchor.constraint(equalTo: taskTitle.trailingAnchor).isActive = true
+        separatorCell.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
     }
 
     func removeSeparator() {

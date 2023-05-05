@@ -49,6 +49,7 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
 
+        tasksTableView.estimatedRowHeight = Constants.taskTableViewHeightForRow
         tasksTableView.rowHeight = UITableView.automaticDimension
         tasksTableView.separatorStyle = .none
     }
@@ -74,7 +75,7 @@ extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource 
         let section = sections[indexPath.section]
         let task = section.tasks[indexPath.row]
         cell?.setupCell(task: task)
-        return cell ?? UITableViewCell(frame: .zero)
+        return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

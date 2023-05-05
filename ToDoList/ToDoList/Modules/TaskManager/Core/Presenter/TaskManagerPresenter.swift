@@ -8,8 +8,8 @@ import UIKit
 
 final class TaskManagerPresenter: TaskManagerPresenterInterface {
 
-    private let view: TaskManagerViewControllerInterface?
-    private let storage: StorageInterface
+    unowned private let view: TaskManagerViewControllerInterface!
+    private let storage: StorageInterface!
 
     init(viewController: TaskManagerViewControllerInterface, storage: StorageInterface) {
         self.view = viewController
@@ -17,7 +17,7 @@ final class TaskManagerPresenter: TaskManagerPresenterInterface {
     }
 
     func requestSections() {
-        guard let sections = storage.getSections() else { return }
+        guard let sections = storage?.getSections() else { return }
         view?.updateTasksList(with: sections)
     }
 }

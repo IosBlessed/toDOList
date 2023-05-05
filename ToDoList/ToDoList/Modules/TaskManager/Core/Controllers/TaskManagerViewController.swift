@@ -29,7 +29,7 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
 
     private func setupNavigationBar() {
         title = "Task Manager"
-        
+
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.extendedLayoutIncludesOpaqueBars = true
         navigationController?.navigationBar.prefersLargeTitles = true

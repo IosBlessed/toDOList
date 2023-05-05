@@ -11,7 +11,7 @@ class Storage: StorageInterface {
     private var sections: [TaskSection]? = []
     private var activeTasks = [TaskItem]()
     private var completedTasks = [TaskItem]()
-    
+
     init() {
         addTask(status: .active, title: "First task", description: "First task desriptional for testing")
         addTask(

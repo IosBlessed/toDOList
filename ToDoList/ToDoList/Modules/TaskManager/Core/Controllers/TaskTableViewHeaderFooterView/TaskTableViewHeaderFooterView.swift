@@ -32,11 +32,11 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func initializeHeaderFooterSection(with title: String) {
         self.sectionTitle.text = title
     }
-    
+
     private func setupBackgroundLayer() {
         let layer = CALayer(layer: self.layer)
         DispatchQueue.main.async {

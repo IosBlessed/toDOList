@@ -60,22 +60,10 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
     }
 }
 
-extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource {
+extension TaskManagerViewController: UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].tasks.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
-        let section = sections[indexPath.section]
-        let task = section.tasks[indexPath.row]
-        cell?.setupCell(task: task)
-        return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -94,5 +82,20 @@ extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == tasks.count - 1 {
            customCell?.removeSeparator()
        }
+    }
+}
+
+extension TaskManagerViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].tasks.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
+        let section = sections[indexPath.section]
+        let task = section.tasks[indexPath.row]
+        cell?.setupCell(task: task)
+        return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }
 }

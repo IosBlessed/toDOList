@@ -9,7 +9,7 @@ import UIKit
 final class TaskManagerPresenter: TaskManagerPresenterInterface {
 
     private let view: TaskManagerViewControllerInterface?
-    var storage: StorageInterface
+    private let storage: StorageInterface
 
     init(viewController: TaskManagerViewControllerInterface, storage: StorageInterface) {
         self.view = viewController

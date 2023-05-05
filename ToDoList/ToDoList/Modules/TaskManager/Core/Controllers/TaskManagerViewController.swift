@@ -49,7 +49,7 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
 
-        tasksTableView.rowHeight = Constants.taskTableViewHeightForRow
+        tasksTableView.rowHeight = UITableView.automaticDimension
         tasksTableView.separatorStyle = .none
     }
 
@@ -76,20 +76,13 @@ extension TaskManagerViewController: UITableViewDelegate, UITableViewDataSource 
         cell?.setupCell(task: task)
         return cell ?? UITableViewCell(frame: .zero)
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = sections[indexPath.section]
-        let task = section.tasks[indexPath.row]
-        guard task.description != nil else { return tableView.rowHeight }
-        let cellHeight = tableView.rowHeight + 30.0
-        return cellHeight
-    }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TaskTableViewHeaderFooterView.identifier
         ) as? TaskTableViewHeaderFooterView
-        headerView?.sectionTitle.text = sections[section].title.rawValue
+        let title = sections[section].title.rawValue
+        headerView?.initializeHeaderFooterSection(with: title)
         return headerView
     }
 

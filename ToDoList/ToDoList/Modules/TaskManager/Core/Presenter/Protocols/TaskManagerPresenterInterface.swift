@@ -5,6 +5,5 @@
 //  Created by Никита Данилович on 04.05.2023.
 //
 protocol TaskManagerPresenterInterface: AnyObject {
-    var storage: StorageInterface { get }
     func requestSections()
 }

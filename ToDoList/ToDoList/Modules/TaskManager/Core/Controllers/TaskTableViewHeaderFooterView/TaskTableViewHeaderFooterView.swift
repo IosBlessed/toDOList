@@ -23,28 +23,12 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         return sectionTitle
     }()
 
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        setupBackgroundLayer()
+    override func layoutSubviews() {
         configureContents()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     func initializeHeaderFooterSection(with title: String) {
         self.sectionTitle.text = title
-    }
-
-    private func setupBackgroundLayer() {
-        let layer = CALayer(layer: self.layer)
-        DispatchQueue.main.async {
-            layer.frame = self.layer.bounds
-        }
-        layer.backgroundColor = DesignedSystemColors.primary.cgColor
-        layer.masksToBounds = true
-        self.layer.addSublayer(layer)
     }
 
     private func configureContents() {

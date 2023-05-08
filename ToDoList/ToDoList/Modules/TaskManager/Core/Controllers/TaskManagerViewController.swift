@@ -62,23 +62,7 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
     
     @IBAction func showAddTaskViewController(_ sender: UIButton) {
         let addTaskViewController = AddTaskBuilder.shared.buildAddTask()
-        setupBackButtonItem()
         show(addTaskViewController, sender: self.navigationController)
-    }
-    private func setupBackButtonItem() {
-        let backButtonBackgroundImage = UIImage(systemName: "arrowshape.left.fill") ?? UIImage()
-        backButtonBackgroundImage.draw(in: CGRect(origin: .zero, size: CGSize(width: 5, height: 5)))
-        navigationController?.navigationBar.backIndicatorImage = backButtonBackgroundImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonBackgroundImage
-        let backButtonItem = UIBarButtonItem()
-        backButtonItem.title = "Back"
-        backButtonItem.setTitleTextAttributes(
-            [
-                NSAttributedString.Key.font: DesignedSystemFonts.body
-            ], for: .normal
-        )
-        backButtonItem.tintColor = DesignedSystemColors.accent
-        navigationItem.backBarButtonItem = backButtonItem
     }
 }
 

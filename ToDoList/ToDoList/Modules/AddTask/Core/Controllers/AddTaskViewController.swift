@@ -11,8 +11,10 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
     var presenter: AddTaskPresenterInterface?
     @IBOutlet weak var textFieldsStackView: UIStackView! {
         didSet {
-            for view in textFieldsStackView.arrangedSubviews {
+            let subviews = textFieldsStackView.arrangedSubviews as? [UITextField] ?? [UITextField]()
+            for view in subviews {
                 view.backgroundColor = DesignedSystemColors.contrast
+                view.text = ""
             }
         }
     }
@@ -66,20 +68,17 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
         registerBackButtonTapRecognizer()
     }
+
     override func viewDidLayoutSubviews() {
         configureViews()
-        if #available(iOS 15.0, *) {
-            print(view.keyboardLayoutGuide)
-        }
     }
 
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         title = "Add task"
         let barButtonItem = UIBarButtonItem(customView: barButtonCustomView)
-        navigationItem.setLeftBarButton(barButtonItem, animated: true)
+        navigationItem.leftBarButtonItem = barButtonItem
     }
 
     private func configureViews() {
@@ -123,6 +122,7 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
         let tapHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapHideKeyboard)
     }
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
@@ -130,9 +130,11 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
     @objc func popToRootTaskManager() {
         navigationController?.popToRootViewController(animated: true)
     }
+    
     @objc func userInputText() {
         presenter?.processTitleTextField(text: titleTextField.text ?? "")
     }
+    
     private func setupAddTaskButtonConstraints() {
         addTaskButton.leadingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.leadingAnchor,
@@ -157,6 +159,7 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
             ).isActive = true
         }
     }
+    
     func textFieldProcessed(with success: Bool) {
        if success {
             addTaskButton.isHidden = false
@@ -165,5 +168,12 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
        } else {
            addTaskButton.isHidden = true
        }
+    }
+    
+    @IBAction func addTaskAction(_ sender: Any) {
+        guard let title = titleTextField.text else { return }
+        let description = subtitleTextField.text
+        presenter?.addTaskToStorage(task: TaskItem(status: .active, title: title, description: description))
+        navigationController?.popToRootViewController(animated: true)
     }
 }

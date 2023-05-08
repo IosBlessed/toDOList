@@ -60,6 +60,9 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="addTaskAction:" destination="-1" eventType="touchUpInside" id="2Ob-ga-gqK"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

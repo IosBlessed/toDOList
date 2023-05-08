@@ -52,7 +52,7 @@ class TaskTableViewCell: UITableViewCell {
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(
             string: task.title,
              attributes: [
-                 NSAttributedString.Key.font: DesignedSystemFonts.body
+                 NSAttributedString.Key.font: DesignedSystemFonts.bodyBold
              ]
          )
         let stringRange: NSRange = NSRange(location: 0, length: attributedString.length)

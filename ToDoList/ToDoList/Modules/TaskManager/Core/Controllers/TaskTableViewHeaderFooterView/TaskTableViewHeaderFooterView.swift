@@ -16,7 +16,7 @@ class TaskTableViewHeaderFooterView: UITableViewHeaderFooterView {
         sectionTitle.attributedText = NSAttributedString(
             string: sectionTitle.text ?? " ",
             attributes: [
-                NSAttributedString.Key.font: DesignedSystemFonts.headline,
+                NSAttributedString.Key.font: DesignedSystemFonts.headlineBold,
                 NSAttributedString.Key.foregroundColor: DesignedSystemColors.textPrimary
             ]
         )

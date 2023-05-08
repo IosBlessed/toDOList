@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddTaskViewController" customModule="ToDoList" customModuleProvider="target">
             <connections>
-                <outlet property="addTaskButton" destination="cID-eE-jew" id="Iug-s2-8UL"/>
+                <outlet property="addTaskButton" destination="cID-eE-jew" id="5fo-Uk-xMc"/>
                 <outlet property="subtitleTextField" destination="zha-bX-H1l" id="Edx-i8-Fiq"/>
                 <outlet property="textFieldsStackView" destination="AAa-ID-rRl" id="sZm-DZ-IBo"/>
                 <outlet property="titleTextField" destination="jg0-cK-svu" id="zoX-0y-BbZ"/>
@@ -42,15 +42,13 @@
                     </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cID-eE-jew">
-                    <rect key="frame" x="16" y="714" width="347" height="64"/>
+                    <rect key="frame" x="30" y="744" width="340" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.25882352939999997" blue="0.2620318532" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain">
-                        <backgroundConfiguration key="background">
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="strokeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </backgroundConfiguration>
+                    <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                        <backgroundConfiguration key="background"/>
                         <attributedString key="attributedTitle">
                             <fragment content="Create Task">
                                 <attributes>

@@ -16,7 +16,7 @@ class AddTaskPresenter: AddTaskPresenterInterface {
 
     func processTitleTextField(text: String) {
         let trimString = text.trimmingCharacters(in: .whitespaces)
-        let status = trimString != "" && trimString.count >= 2 ? true : false
+        let status = trimString != "" && trimString.count >= 2
         view.textFieldProcessed(with: status)
     }
     

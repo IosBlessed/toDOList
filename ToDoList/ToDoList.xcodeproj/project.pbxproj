@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				37CB667229FC5DAE00DC231C /* Model */,
-				37CB667329FC5DBB00DC231C /* Controllers */,
+				37CB667329FC5DBB00DC231C /* Views */,
 				37F3C8C52A014688005E92D1 /* Presenter */,
 			);
 			path = Core;
@@ -243,7 +243,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		37CB667329FC5DBB00DC231C /* Controllers */ = {
+		37CB667329FC5DBB00DC231C /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				37B54F3A2A02ACE30064172C /* Protocols */,
@@ -252,7 +252,7 @@
 				37F3C8CE2A023D6D005E92D1 /* TaskTableViewHeaderFooterView */,
 				37CB667629FC5E8000DC231C /* TaskTableViewCell */,
 			);
-			path = Controllers;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		37CB667629FC5E8000DC231C /* TaskTableViewCell */ = {
@@ -285,7 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				37F540CB2A052CE500035236 /* Presenter */,
-				37F540CA2A052CD000035236 /* Controllers */,
+				37F540CA2A052CD000035236 /* Views */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -298,15 +298,14 @@
 			path = Builder;
 			sourceTree = "<group>";
 		};
-		37F540CA2A052CD000035236 /* Controllers */ = {
+		37F540CA2A052CD000035236 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				37F540DB2A093A9400035236 /* Protocol */,
 				37F540CC2A052DC500035236 /* AddTaskViewController.swift */,
 				37F540CD2A052DC500035236 /* AddTaskViewController.xib */,
-				37F540D02A052DCA00035236 /* Views */,
 			);
-			path = Controllers;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		37F540CB2A052CE500035236 /* Presenter */ = {
@@ -316,13 +315,6 @@
 				37F540D62A08513100035236 /* AddTaskPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		37F540D02A052DCA00035236 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		37F540D82A093A5A00035236 /* Protocol */ = {

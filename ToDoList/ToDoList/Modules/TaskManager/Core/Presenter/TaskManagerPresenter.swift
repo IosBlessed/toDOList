@@ -7,7 +7,7 @@
 import UIKit
 
 final class TaskManagerPresenter: TaskManagerPresenterInterface {
-
+    
     unowned private let view: TaskManagerViewControllerInterface
     private let storage: StorageInterface
 
@@ -16,8 +16,16 @@ final class TaskManagerPresenter: TaskManagerPresenterInterface {
         self.storage = storage
     }
 
-    func requestSections() {
-        guard let sections = storage.getSections() else { return }
-        view.updateTasksList(with: sections)
+    func requestDataFromStorage() {
+        if let tasks = storage.getTasks(), let sections = storage.getSections() {
+            view.updateTasksList(tasks: tasks, sections: sections)
+        }
+    }
+    
+    func getTasksBySection(with section: TaskStatus) -> [TaskItem]? {
+        guard let tasks = storage.getTasks() else { return nil }
+        return tasks.filter { task in
+            task.status == section
+        }
     }
 }

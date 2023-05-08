@@ -33,6 +33,8 @@
 		37F540CF2A052DC500035236 /* AddTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F540CD2A052DC500035236 /* AddTaskViewController.xib */; };
 		37F540D22A052E0B00035236 /* AddTaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540D12A052E0B00035236 /* AddTaskBuilder.swift */; };
 		37F540D72A08513100035236 /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540D62A08513100035236 /* AddTaskPresenter.swift */; };
+		37F540DA2A093A6F00035236 /* AddTaskPresenterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540D92A093A6F00035236 /* AddTaskPresenterInterface.swift */; };
+		37F540DD2A093AA500035236 /* AddTaskViewControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540DC2A093AA500035236 /* AddTaskViewControllerInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		37F540CD2A052DC500035236 /* AddTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskViewController.xib; sourceTree = "<group>"; };
 		37F540D12A052E0B00035236 /* AddTaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskBuilder.swift; sourceTree = "<group>"; };
 		37F540D62A08513100035236 /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
+		37F540D92A093A6F00035236 /* AddTaskPresenterInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenterInterface.swift; sourceTree = "<group>"; };
+		37F540DC2A093AA500035236 /* AddTaskViewControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewControllerInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +301,7 @@
 		37F540CA2A052CD000035236 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				37F540DB2A093A9400035236 /* Protocol */,
 				37F540CC2A052DC500035236 /* AddTaskViewController.swift */,
 				37F540CD2A052DC500035236 /* AddTaskViewController.xib */,
 				37F540D02A052DCA00035236 /* Views */,
@@ -307,6 +312,7 @@
 		37F540CB2A052CE500035236 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				37F540D82A093A5A00035236 /* Protocol */,
 				37F540D62A08513100035236 /* AddTaskPresenter.swift */,
 			);
 			path = Presenter;
@@ -317,6 +323,22 @@
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		37F540D82A093A5A00035236 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37F540D92A093A6F00035236 /* AddTaskPresenterInterface.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		37F540DB2A093A9400035236 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37F540DC2A093AA500035236 /* AddTaskViewControllerInterface.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +442,7 @@
 				37B54F342A02712B0064172C /* TaskManagerBuilder.swift in Sources */,
 				37F540D72A08513100035236 /* AddTaskPresenter.swift in Sources */,
 				37F540CE2A052DC500035236 /* AddTaskViewController.swift in Sources */,
+				37F540DD2A093AA500035236 /* AddTaskViewControllerInterface.swift in Sources */,
 				37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */,
 				37CB667129FC5CB600DC231C /* DesignedSystem.swift in Sources */,
 				37BA4F2029FBB3B9006C5762 /* SceneDelegate.swift in Sources */,
@@ -432,6 +455,7 @@
 				37F3C8C42A013A7E005E92D1 /* StorageTasks.swift in Sources */,
 				37F3C8D02A023E46005E92D1 /* TaskTableViewHeaderFooterView.swift in Sources */,
 				37CB666A29FC5B7A00DC231C /* Constants.swift in Sources */,
+				37F540DA2A093A6F00035236 /* AddTaskPresenterInterface.swift in Sources */,
 				37BA4F2829FBB3B9006C5762 /* ToDoList.xcdatamodeld in Sources */,
 				37CB667829FC5F5200DC231C /* TaskItem.swift in Sources */,
 				37BA4F3D29FBB50F006C5762 /* TaskManagerViewController.swift in Sources */,

@@ -4,5 +4,7 @@
 //
 //  Created by Никита Данилович on 08.05.2023.
 //
-
-import Foundation
+protocol AddTaskPresenterInterface: AnyObject {
+    func processTitleTextField(text: String)
+    func addTaskToStorage(task: TaskItem)
+}

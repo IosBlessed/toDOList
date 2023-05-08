@@ -12,14 +12,16 @@ class AddTaskBuilder {
     static let shared = AddTaskBuilder()
 
     func buildAddTask() -> AddTaskViewController {
-
+        let storage = (UIApplication.shared.delegate as? AppDelegate)!.storage
         let addTaskVC = AddTaskViewController(
             nibName: String(describing: AddTaskViewController.self),
             bundle: nil
         )
-        let addTaskPresenter = AddTaskPresenter(view: addTaskVC)
+        let addTaskPresenter = AddTaskPresenter(
+            view: addTaskVC,
+            storage: storage
+        )
         addTaskVC.presenter = addTaskPresenter
         return addTaskVC
     }
-
 }

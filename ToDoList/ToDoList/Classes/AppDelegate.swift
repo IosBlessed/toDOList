@@ -9,6 +9,11 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    lazy var storage: StorageInterface = {
+        let storage = Storage()
+        return storage
+    }()
 
     func application(
         _ application: UIApplication,

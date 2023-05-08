@@ -32,6 +32,7 @@
 		37F540CE2A052DC500035236 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540CC2A052DC500035236 /* AddTaskViewController.swift */; };
 		37F540CF2A052DC500035236 /* AddTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F540CD2A052DC500035236 /* AddTaskViewController.xib */; };
 		37F540D22A052E0B00035236 /* AddTaskBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540D12A052E0B00035236 /* AddTaskBuilder.swift */; };
+		37F540D72A08513100035236 /* AddTaskPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F540D62A08513100035236 /* AddTaskPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		37F540CC2A052DC500035236 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 		37F540CD2A052DC500035236 /* AddTaskViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTaskViewController.xib; sourceTree = "<group>"; };
 		37F540D12A052E0B00035236 /* AddTaskBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskBuilder.swift; sourceTree = "<group>"; };
+		37F540D62A08513100035236 /* AddTaskPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +307,7 @@
 		37F540CB2A052CE500035236 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				37F540D62A08513100035236 /* AddTaskPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37B54F342A02712B0064172C /* TaskManagerBuilder.swift in Sources */,
+				37F540D72A08513100035236 /* AddTaskPresenter.swift in Sources */,
 				37F540CE2A052DC500035236 /* AddTaskViewController.swift in Sources */,
 				37BA4F1E29FBB3B9006C5762 /* AppDelegate.swift in Sources */,
 				37CB667129FC5CB600DC231C /* DesignedSystem.swift in Sources */,

@@ -28,7 +28,7 @@ class Storage: StorageInterface {
     }
 
     func addTask(status: TaskStatus, title: String, description: String?) {
-        storagedTasks.append(TaskItem(status: status, title: title, description: description))
+        storagedTasks.insert(TaskItem(status: status, title: title, description: description), at: 0)
     }
     
     func modifyExistingTask(task: TaskItem?, newTitle: String, newDescription: String?) {
@@ -44,12 +44,22 @@ class Storage: StorageInterface {
             storagedTasks.remove(at: indexOfRemoved)
         }
     }
-
+    
+    func addSection(section: TaskStatus) {
+        storagedSections.append(section)
+        storagedSections.sort { $0.rawValue < $1.rawValue }
+    }
+    
     func getTasks() -> [TaskItem]? {
         return storagedTasks
     }
     
     func getSections() -> [TaskStatus]? {
         return storagedSections
+    }
+    func removeSection(section: TaskStatus) {
+        if let indexForRemove = storagedSections.firstIndex(where: { $0 == section }) {
+            storagedSections.remove(at: indexForRemove)
+        }
     }
 }

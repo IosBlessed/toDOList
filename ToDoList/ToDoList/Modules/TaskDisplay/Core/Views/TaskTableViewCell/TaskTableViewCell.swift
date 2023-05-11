@@ -8,19 +8,31 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
 
+    @IBOutlet private weak var titleAndDescription: UIStackView!
     @IBOutlet private weak var taskTitle: UILabel!
     @IBOutlet private weak var taskDescription: UILabel! {
         didSet {
             taskDescription.numberOfLines = 5
         }
     }
-    @IBOutlet weak var statusButton: UIButton! {
+    @IBOutlet private weak var statusButton: UIButton! {
         didSet {
             statusButton.layer.masksToBounds = true
             statusButton.layer.cornerRadius = statusButton.bounds.height/2
         }
     }
-
+    @IBOutlet private weak var separatorView: UIView! {
+        didSet {
+            separatorView.backgroundColor = DesignedSystemColors
+                .textSubtitle
+                .withAlphaComponent(
+                    Constants.taskTableViewCellSeparatorAlphaColor
+                )
+            separatorView.layer.masksToBounds = true
+            separatorView.layer.cornerRadius = Constants.taskTableViewSeparatorCornerRadius
+        }
+    }
+    var isLast: Bool = false
     private var task: TaskItem!
     static let nib: UINib = {
         return UINib(
@@ -28,24 +40,17 @@ class TaskTableViewCell: UITableViewCell {
             bundle: nil
         )
     }()
-    private lazy var separatorCell: UIView = {
-        let separator = UIView(frame: .zero)
-        separator.layer.backgroundColor = DesignedSystemColors.separatorTableViewCellColor
-        separator.layer.masksToBounds = true
-        separator.layer.cornerRadius = 2
-
-        return separator
-    }()
     static let identifier: String = "taskCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = DesignedSystemColors.primary
     }
 
     func setupCell(task: TaskItem) {
         self.task = task
         setupItemsBasedOnStatus()
-        configureViews()
+        separatorView.isHidden = isLast
     }
 
     private func setupItemsBasedOnStatus() {
@@ -83,37 +88,5 @@ class TaskTableViewCell: UITableViewCell {
                 NSAttributedString.Key.foregroundColor: DesignedSystemColors.textSubtitle
             ]
         )
-    }
-
-    private func configureViews() {
-        self.addSubview(separatorCell)
-        statusButton.translatesAutoresizingMaskIntoConstraints = false
-        taskTitle.translatesAutoresizingMaskIntoConstraints = false
-        taskDescription.translatesAutoresizingMaskIntoConstraints = false
-        separatorCell.translatesAutoresizingMaskIntoConstraints = false
-
-        statusButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        statusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
-        statusButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        statusButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
-
-        taskTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16).isActive = true
-        taskTitle.leadingAnchor.constraint(equalTo: statusButton.trailingAnchor, constant: 16).isActive = true
-        taskTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
-        taskTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
-
-        taskDescription.topAnchor.constraint(equalTo: taskTitle.bottomAnchor, constant: 4).isActive = true
-        taskDescription.leadingAnchor.constraint(equalTo: taskTitle.leadingAnchor).isActive = true
-        taskDescription.trailingAnchor.constraint(equalTo: taskTitle.trailingAnchor).isActive = true
-        taskDescription.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -16).isActive = true
-
-        separatorCell.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separatorCell.leadingAnchor.constraint(equalTo: taskTitle.leadingAnchor).isActive = true
-        separatorCell.trailingAnchor.constraint(equalTo: taskTitle.trailingAnchor).isActive = true
-        separatorCell.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-    }
-
-    func removeSeparator() {
-        separatorCell.removeFromSuperview()
     }
 }

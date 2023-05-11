@@ -10,4 +10,6 @@ protocol StorageInterface: AnyObject {
     func getSections() -> [TaskStatus]?
     func modifyExistingTask(task: TaskItem?, newTitle: String, newDescription: String?)
     func removeTask(task: TaskItem?)
+    func removeSection(section: TaskStatus)
+    func addSection(section: TaskStatus)
 }

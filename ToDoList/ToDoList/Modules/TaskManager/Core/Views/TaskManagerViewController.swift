@@ -10,21 +10,25 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
 
 // MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
-
-// MARK: - Properties
+    @IBOutlet private weak var addTaskButton: UIButton!
+    // MARK: - Properties
     var presenter: TaskManagerPresenterInterface?
-    private var sections = [TaskSection]()
+    private var tasks = [TaskItem]()
+    private var sections = [TaskStatus]()
 
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestPresenterToExtractData()
         setupNavigationBar()
         setupTaskTableView()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        requestPresenterToExtractData()
+    }
+    
     private func requestPresenterToExtractData() {
-        presenter?.requestSections()
+        presenter?.requestDataFromStorage()
     }
 
     private func setupNavigationBar() {
@@ -52,11 +56,19 @@ final class TaskManagerViewController: UIViewController, TaskManagerViewControll
         tasksTableView.estimatedRowHeight = Constants.taskTableViewHeightForRow
         tasksTableView.rowHeight = UITableView.automaticDimension
         tasksTableView.separatorStyle = .none
+        view.layoutSubviews()
     }
 
-    func updateTasksList(with sections: [TaskSection]) {
+    func updateTasksList(tasks: [TaskItem], sections: [TaskStatus]) {
+        self.tasks = tasks
         self.sections = sections
         self.tasksTableView.reloadData()
+    }
+    
+    @IBAction func showAddTaskViewController(_ sender: UIButton) {
+        let addTaskViewController = AddTaskBuilder.shared.buildAddTask()
+        addTaskViewController.setupNavigationBar()
+        show(addTaskViewController, sender: nil)
     }
 }
 
@@ -70,7 +82,7 @@ extension TaskManagerViewController: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TaskTableViewHeaderFooterView.identifier
         ) as? TaskTableViewHeaderFooterView
-        let title = sections[section].title.rawValue
+        let title = sections[section].rawValue
         headerView?.initializeHeaderFooterSection(with: title)
         return headerView
     }
@@ -78,7 +90,7 @@ extension TaskManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let customCell = cell as? TaskTableViewCell
         let section = sections[indexPath.section]
-        let tasks = section.tasks
+        let tasks = presenter?.getTasksBySection(with: section) ?? []
         if indexPath.row == tasks.count - 1 {
            customCell?.removeSeparator()
        }
@@ -88,13 +100,16 @@ extension TaskManagerViewController: UITableViewDelegate {
 extension TaskManagerViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].tasks.count
+        let section = sections[section]
+        let tasks = presenter?.getTasksBySection(with: section) ?? []
+        return tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
         let section = sections[indexPath.section]
-        let task = section.tasks[indexPath.row]
+        let tasks = presenter?.getTasksBySection(with: section) ?? []
+        let task = tasks[indexPath.row]
         cell?.setupCell(task: task)
         return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }

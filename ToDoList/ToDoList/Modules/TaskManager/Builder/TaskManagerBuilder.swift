@@ -11,7 +11,7 @@ final class TaskManagerBuilder {
     static let shared = TaskManagerBuilder()
 
     func buildTaskManager() -> TaskManagerViewController {
-        let storage = Storage()
+        let storage = (UIApplication.shared.delegate as? AppDelegate)!.storage
         let taskManagerVC = TaskManagerViewController(
             nibName: String(describing: TaskManagerViewController.self),
             bundle: nil

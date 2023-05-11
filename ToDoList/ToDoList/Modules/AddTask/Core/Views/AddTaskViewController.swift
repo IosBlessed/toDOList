@@ -7,38 +7,43 @@
 
 import UIKit
 
+enum ViewControllerGoal: String {
+    case addTask
+    case editTask
+}
+
 class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
     var presenter: AddTaskPresenterInterface?
+    var presenterOutput: AddTaskPresenterOutputInterface?
+    private var actionButtonAttributedTitle: NSAttributedString?
+    private var task: TaskItem?
+    private var viewGoal: ViewControllerGoal?
     @IBOutlet private weak var textFieldsStackView: UIStackView! {
         didSet {
             let subviews = textFieldsStackView.arrangedSubviews as? [UITextField] ?? [UITextField]()
             for view in subviews {
                 view.backgroundColor = DesignedSystemColors.contrast
-                view.text = ""
             }
         }
     }
     @IBOutlet private weak var titleTextField: UITextField! {
         didSet {
             titleTextField.addTarget(self, action: #selector(userInputText), for: .editingChanged)
+            titleTextField.text = task?.title ?? ""
         }
     }
-    @IBOutlet private weak var subtitleTextField: UITextField!
+    @IBOutlet private weak var subtitleTextField: UITextField! {
+        didSet {
+            subtitleTextField.text = task?.description ?? ""
+        }
+    }
     @IBOutlet private weak var addTaskButton: UIButton! {
         didSet {
             addTaskButton.translatesAutoresizingMaskIntoConstraints = false
-            addTaskButton.isHidden = true
+            addTaskButton.isHidden = viewGoal == .addTask
+            addTaskButton.setAttributedTitle(actionButtonAttributedTitle, for: .normal)
             addTaskButton.backgroundColor = DesignedSystemColors.accent
             addTaskButton.tintColor = DesignedSystemColors.primary
-            addTaskButton.setAttributedTitle(
-                NSAttributedString(string: "Create Task",
-                                   attributes: [
-                                    NSAttributedString.Key.foregroundColor: DesignedSystemColors.contrast,
-                                    NSAttributedString.Key.font: DesignedSystemFonts.bodyBold
-                                   ]
-                                  ),
-                for: .normal
-            )
             addTaskButton.layer.masksToBounds = true
             addTaskButton.layer.cornerRadius = addTaskButton.bounds.height/4
         }
@@ -67,6 +72,16 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
             ])
         return customLabel
     }()
+    private lazy var attributedTitle: (String?) -> NSAttributedString = { text in
+        let attributedString = NSAttributedString(
+            string: text ?? "",
+            attributes: [
+                NSAttributedString.Key.foregroundColor: DesignedSystemColors.contrast,
+                NSAttributedString.Key.font: DesignedSystemFonts.bodyBold
+            ]
+        )
+        return attributedString
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +97,20 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
     
     deinit {
         removeKeyboardAppearanceNotification()
+    }
+    
+    func initialSetup(for goal: ViewControllerGoal, with task: TaskItem? = nil) {
+        setupNavigationBar()
+        self.viewGoal = goal
+        switch goal {
+        case .addTask:
+            self.title = "Add Task"
+            self.actionButtonAttributedTitle = attributedTitle("Create Task")
+        case .editTask:
+            self.title = "Edit Task"
+            self.actionButtonAttributedTitle = attributedTitle("Save task")
+            self.task = task
+        }
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -107,8 +136,7 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
         return keyboardFrame.height
     }
     
-    func setupNavigationBar() {
-        title = "Add task"
+    private func setupNavigationBar() {
         let barButtonItem = UIBarButtonItem(customView: barButtonCustomView)
         navigationItem.leftBarButtonItem = barButtonItem
     }
@@ -228,11 +256,18 @@ class AddTaskViewController: UIViewController, AddTaskViewControllerInterface {
            addTaskButton.isHidden = true
        }
     }
-    
+
     @IBAction func addTaskAction(_ sender: Any) {
         guard let title = titleTextField.text else { return }
         let description = subtitleTextField.text
-        presenter?.addTaskToStorage(task: TaskItem(status: .active, title: title, description: description))
+        switch viewGoal {
+        case .addTask:
+            presenter?.addTaskToStorage(task: TaskItem(status: .active, title: title, description: description))
+        case .editTask:
+            presenterOutput?.editTask(task: task, newTitle: title, newDescription: description)
+        default:
+            fatalError("Unknown view controller's goal...")
+        }
         navigationController?.popToRootViewController(animated: true)
     }
 }

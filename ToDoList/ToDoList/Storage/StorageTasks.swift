@@ -30,6 +30,20 @@ class Storage: StorageInterface {
     func addTask(status: TaskStatus, title: String, description: String?) {
         storagedTasks.append(TaskItem(status: status, title: title, description: description))
     }
+    
+    func modifyExistingTask(task: TaskItem?, newTitle: String, newDescription: String?) {
+        guard let task else { return }
+        if let indexOfDetailedTask = storagedTasks.firstIndex(where: { $0.hashValue == task.hashValue }) {
+            storagedTasks[indexOfDetailedTask].changeTaskDetails(title: newTitle, description: newDescription)
+        }
+    }
+    
+    func removeTask(task: TaskItem?) {
+        guard let task else { return }
+        if let indexOfRemoved = storagedTasks.firstIndex(where: {$0.hashValue == task.hashValue}) {
+            storagedTasks.remove(at: indexOfRemoved)
+        }
+    }
 
     func getTasks() -> [TaskItem]? {
         return storagedTasks

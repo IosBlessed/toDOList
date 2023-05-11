@@ -8,3 +8,7 @@ protocol AddTaskPresenterInterface: AnyObject {
     func processTitleTextField(text: String)
     func addTaskToStorage(task: TaskItem)
 }
+
+protocol AddTaskPresenterOutputInterface: AnyObject {
+    func editTask(task: TaskItem?, newTitle: String, newDescription: String?)
+}

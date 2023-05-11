@@ -6,5 +6,6 @@
 //
 protocol AddTaskViewControllerInterface: AnyObject {
     var presenter: AddTaskPresenterInterface? { get }
+    var presenterOutput: AddTaskPresenterOutputInterface? { get }
     func textFieldProcessed(with success: Bool)
 }

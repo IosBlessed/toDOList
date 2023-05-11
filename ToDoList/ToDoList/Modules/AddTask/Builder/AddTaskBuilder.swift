@@ -22,6 +22,7 @@ class AddTaskBuilder {
             storage: storage
         )
         addTaskVC.presenter = addTaskPresenter
+        addTaskVC.presenterOutput = addTaskPresenter
         return addTaskVC
     }
 }

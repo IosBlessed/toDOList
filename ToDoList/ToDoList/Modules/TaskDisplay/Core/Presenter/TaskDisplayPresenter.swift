@@ -42,4 +42,10 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
         }
         requestDataFromStorage()
     }
+    
+    func rearrangeTask(sourceIndex: Int?, targetIndex: Int?) {
+        guard let sourceIndex, let targetIndex else { return }
+        storage.swapTasks(sourceIndex: sourceIndex, targetIndex: targetIndex)
+        requestDataFromStorage()
+    }
 }

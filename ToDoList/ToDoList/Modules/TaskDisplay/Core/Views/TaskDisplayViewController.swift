@@ -39,6 +39,17 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        let rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "list.dash"),
+            style: .plain,
+            target: self,
+            action: #selector(startTableViewEditingMode)
+        )
+        navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+    @objc func startTableViewEditingMode() {
+        let editingMode = !tasksTableView.isEditing
+        tasksTableView.setEditing(editingMode, animated: true)
     }
 
     private func setupTaskTableView() {
@@ -127,6 +138,30 @@ extension TaskDisplayViewController: UITableViewDataSource {
         let task = tasks[indexPath.row]
         cell?.setupCell(task: task)
         return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let sourceSection = sections[sourceIndexPath.section]
+        let targetSection = sections[destinationIndexPath.section]
+        if sourceSection == targetSection {
+            if let sectionedTasks = presenter?.getTasksBySection(with: sourceSection) {
+                let sourceTask = sectionedTasks[sourceIndexPath.row]
+                let targetTask = sectionedTasks[destinationIndexPath.row]
+                let indexOfSourceTask = tasks.firstIndex(of: sourceTask)
+                let indexOfTargetTask = tasks.firstIndex(of: targetTask)
+                presenter?.rearrangeTask(sourceIndex: indexOfSourceTask, targetIndex: indexOfTargetTask)
+            }
+        } else {
+            tableView.reloadData()
+        }
     }
     
     func tableView(

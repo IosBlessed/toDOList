@@ -8,4 +8,5 @@ protocol TaskDisplayPresenterInterface: AnyObject {
     func requestDataFromStorage()
     func getTasksBySection(with section: TaskStatus) -> [TaskItem]?
     func removeTaskFromList(task: TaskItem?)
+    func rearrangeTask(sourceIndex: Int?, targetIndex: Int?)
 }

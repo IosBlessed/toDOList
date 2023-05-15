@@ -10,13 +10,8 @@ import UIKit
 class TaskManagerBuilder {
 
     static let shared = TaskManagerBuilder()
-    
-    var task: TaskItem?
 
     func buildTaskManager(with task: TaskItem? = nil) -> TaskManagerViewController {
-        defer {
-            TaskManagerBuilder.shared.task = task
-        }
         let storage = (UIApplication.shared.delegate as? AppDelegate)!.storage
         let taskManagerVC = TaskManagerViewController(
             nibName: String(describing: TaskManagerViewController.self),
@@ -24,7 +19,8 @@ class TaskManagerBuilder {
         )
         let taskManagerPresenter = TaskManagerPresenter(
             view: taskManagerVC,
-            storage: storage
+            storage: storage,
+            task: task
         )
         taskManagerVC.presenter = taskManagerPresenter
         return taskManagerVC

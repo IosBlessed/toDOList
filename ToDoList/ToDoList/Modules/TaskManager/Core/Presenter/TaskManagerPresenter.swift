@@ -8,10 +8,12 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
   
     private unowned let view: TaskManagerViewControllerInterface
     private let storage: StorageInterface
+    private let task: TaskItem?
 
-    init(view: TaskManagerViewControllerInterface, storage: StorageInterface) {
+    init(view: TaskManagerViewControllerInterface, storage: StorageInterface, task: TaskItem? = nil) {
         self.view = view
         self.storage = storage
+        self.task = task
     }
 
     func processTitleTextField(text: String) {
@@ -35,7 +37,7 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     
     func taskManagerButtonTapped(title: String?, description: String?) {
         guard let title = title else { return }
-        guard let task = TaskManagerBuilder.shared.task  else {
+        guard let task = task else {
             let task = TaskItem(
                 status: .active,
                 title: title,
@@ -48,7 +50,7 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     }
     
     func assignRoleToTaskManager() {
-        guard let task = TaskManagerBuilder.shared.task else {
+        guard let task = task else {
             view.initialViewSetup(
                 title: "Add Task",
                 buttonIsHidden: true,

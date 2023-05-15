@@ -15,7 +15,6 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     var presenter: TaskDisplayPresenterInterface?
     private var tasks = [TaskItem]()
     private var sections = [TaskStatus]()
-
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

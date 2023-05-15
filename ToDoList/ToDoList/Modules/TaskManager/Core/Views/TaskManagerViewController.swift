@@ -27,7 +27,6 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         didSet {
             addTaskButton.translatesAutoresizingMaskIntoConstraints = false
             addTaskButton.backgroundColor = DesignedSystemColors.accent
-            addTaskButton.tintColor = DesignedSystemColors.primary
             addTaskButton.layer.masksToBounds = true
             addTaskButton.layer.cornerRadius = addTaskButton.bounds.height/4
         }
@@ -60,7 +59,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         let attributedString = NSAttributedString(
             string: text ?? "",
             attributes: [
-                NSAttributedString.Key.foregroundColor: DesignedSystemColors.contrast,
+                NSAttributedString.Key.foregroundColor: DesignedSystemColors.defaultWhiteColor,
                 NSAttributedString.Key.font: DesignedSystemFonts.bodyBold
             ]
         )

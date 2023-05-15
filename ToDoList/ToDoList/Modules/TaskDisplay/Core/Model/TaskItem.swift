@@ -12,12 +12,16 @@ enum TaskStatus: String, CaseIterable {
 }
 
 struct TaskItem: Hashable {
-    let status: TaskStatus
+    var status: TaskStatus
     var title: String
     var description: String?
     
     mutating func changeTaskDetails(title: String, description: String?) {
         self.title = title
         self.description = description
+    }
+    
+    mutating func changeTaskStatus(with status: TaskStatus) {
+        self.status = status
     }
 }

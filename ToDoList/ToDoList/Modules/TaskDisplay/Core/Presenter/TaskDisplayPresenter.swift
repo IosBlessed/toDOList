@@ -91,10 +91,10 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
               let indexOfCurrentTask = storage.getTasks()?.firstIndex(where: {$0.hashValue == task.hashValue})
         else { return }
         let changeToStatus: TaskStatus = task.status == .active ? .completed : .active
-        storage.removeTask(task: task)
+        let currentTime = storage.getCurrentTime()
+        storage.switchTaskStatus(taskIndex: indexOfCurrentTask, taskStatus: changeToStatus, currentTime: currentTime)
         removeSectionIfEmpty()
         createSectionIfNotExists(with: changeToStatus)
-        storage.addTask(status: changeToStatus, title: task.title, description: task.description)
         requestDataFromStorage()
     }
 }

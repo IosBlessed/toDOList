@@ -28,7 +28,7 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
                 storage.addSection(section: task.status)
             }
         }
-        storage.addTask(status: task.status, title: task.title, description: task.description)
+        storage.addTask(status: task.status, title: task.title, description: task.description, currentTime: task.timeSinceLastChange)
     }
     
     private func editTask(task: TaskItem?, newTitle: String, newDescription: String?) {
@@ -38,11 +38,12 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     func taskManagerButtonTapped(title: String?, description: String?) {
         guard let title = title else { return }
         guard let task = task else {
+            let currentTime = storage.getCurrentTime()
             let task = TaskItem(
                 status: .active,
                 title: title,
-                description: description
-                
+                description: description,
+                timeSinceLastChange: currentTime
             )
             self.addTaskToStorage(task: task)
             return

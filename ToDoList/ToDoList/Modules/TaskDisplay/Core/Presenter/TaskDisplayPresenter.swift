@@ -48,4 +48,27 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
         storage.swapTasks(sourceIndex: sourceIndex, targetIndex: targetIndex)
         requestDataFromStorage()
     }
+    
+    func editTableViewButtonTapped(with status: Bool) {
+        let newState = status == false
+        view.setTableViewToEditingMode(perform: newState)
+    }
+    
+    func processSwitchingTask(source sourceIndex: IndexPath, destination destinationIndex: IndexPath) {
+        guard let sections = storage.getSections() else { return }
+        guard let tasks = storage.getTasks() else { return }
+        let sourceSection = sections[sourceIndex.section]
+        let targetSection = sections[destinationIndex.section]
+        if sourceSection == targetSection {
+            if let sectionedTasks = getTasksBySection(with: sourceSection) {
+                let sourceTask = sectionedTasks[sourceIndex.row]
+                let targetTask = sectionedTasks[destinationIndex.row]
+                let indexOfSourceTask = tasks.firstIndex(of: sourceTask)
+                let indexOfTargetTask = tasks.firstIndex(of: targetTask)
+                rearrangeTask(sourceIndex: indexOfSourceTask, targetIndex: indexOfTargetTask)
+            }
+        } else {
+            view.updateTasksList(tasks: tasks, sections: sections)
+        }
+    }
 }

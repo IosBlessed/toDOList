@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let taskNavigationController = UINavigationController(
             rootViewController: taskViewController
         )
-        DesignedSystemColors.shared.initializeSystemColors()
         window.rootViewController = taskNavigationController
         window.makeKeyAndVisible()
         self.window = window

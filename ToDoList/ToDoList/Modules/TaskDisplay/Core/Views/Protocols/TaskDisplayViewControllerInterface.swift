@@ -7,5 +7,6 @@
 protocol TaskDisplayViewControllerInterface: AnyObject {
     var presenter: TaskDisplayPresenterInterface? { get set }
     func updateTasksList(tasks: [TaskItem], sections: [TaskStatus])
-    func showTableViewBackgroundImage(with isHidden: Bool )
+    func showTableViewBackgroundImage(with isHidden: Bool)
+    func setTableViewToEditingMode(perform status: Bool) 
 }

@@ -17,10 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let taskViewController = TaskManagerBuilder.shared.buildTaskManager()
+        let taskViewController = TaskDisplayBuilder.shared.buildTaskDisplay()
         let taskNavigationController = UINavigationController(
             rootViewController: taskViewController
         )
+        DesignedSystemColors.shared.initializeSystemColors()
         window.rootViewController = taskNavigationController
         window.makeKeyAndVisible()
         self.window = window

@@ -4,7 +4,8 @@
 //
 //  Created by Никита Данилович on 04.05.2023.
 //
-protocol TaskManagerPresenterInterface: AnyObject {
+protocol TaskDisplayPresenterInterface: AnyObject {
     func requestDataFromStorage()
     func getTasksBySection(with section: TaskStatus) -> [TaskItem]?
+    func removeTaskFromList(task: TaskItem?)
 }

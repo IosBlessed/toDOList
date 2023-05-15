@@ -1,24 +1,26 @@
 //
-//  TaskManagerBuilder.swift
+//  AddTaskBuilder.swift
 //  ToDoList
 //
-//  Created by Никита Данилович on 04.05.2023.
+//  Created by Никита Данилович on 05.05.2023.
 //
+
 import UIKit
 
-final class TaskManagerBuilder {
+class TaskManagerBuilder {
 
     static let shared = TaskManagerBuilder()
 
-    func buildTaskManager() -> TaskManagerViewController {
+    func buildTaskManager(with task: TaskItem? = nil) -> TaskManagerViewController {
         let storage = (UIApplication.shared.delegate as? AppDelegate)!.storage
         let taskManagerVC = TaskManagerViewController(
             nibName: String(describing: TaskManagerViewController.self),
             bundle: nil
         )
         let taskManagerPresenter = TaskManagerPresenter(
-            viewController: taskManagerVC,
-            storage: storage
+            view: taskManagerVC,
+            storage: storage,
+            task: task
         )
         taskManagerVC.presenter = taskManagerPresenter
         return taskManagerVC

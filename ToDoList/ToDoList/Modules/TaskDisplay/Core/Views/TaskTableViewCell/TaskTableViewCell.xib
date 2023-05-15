@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TaskTableViewCell" customModule="ToDoList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="hmp-u6-Wu4">
+                        <rect key="frame" x="42" y="16" width="258" height="28"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eVI-cL-rpk">
+                                <rect key="frame" x="0.0" y="0.0" width="258" height="19"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Title">
+                                        <attributes>
+                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" metaFont="system" size="16"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="740" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqx-EQ-HWE">
+                                <rect key="frame" x="0.0" y="19" width="258" height="9"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qop-Gq-nRz">
+                        <rect key="frame" x="10" y="22" width="16" height="16"/>
+                        <color key="backgroundColor" red="0.83137254900000002" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="Fl7-bP-oSe"/>
+                            <constraint firstAttribute="height" constant="16" id="aUz-uu-jZr"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="" cornerStyle="capsule">
+                            <backgroundConfiguration key="background"/>
+                        </buttonConfiguration>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oys-wY-DHv">
+                        <rect key="frame" x="42" y="59" width="278" height="1"/>
+                        <viewLayoutGuide key="safeArea" id="MnJ-5g-8Wk"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="J9g-cq-uy1"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <viewLayoutGuide key="safeArea" id="8Z4-XX-Y6c"/>
+                <constraints>
+                    <constraint firstItem="hmp-u6-Wu4" firstAttribute="leading" secondItem="qop-Gq-nRz" secondAttribute="trailing" constant="16" id="3ax-Fx-GbQ"/>
+                    <constraint firstAttribute="bottom" secondItem="hmp-u6-Wu4" secondAttribute="bottom" constant="16" id="OGt-Wr-hnL"/>
+                    <constraint firstAttribute="trailing" secondItem="oys-wY-DHv" secondAttribute="trailing" id="OoV-6D-w1q"/>
+                    <constraint firstItem="qop-Gq-nRz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="WD2-q6-4Pb"/>
+                    <constraint firstAttribute="bottom" secondItem="oys-wY-DHv" secondAttribute="bottom" id="Y1i-eY-tZJ"/>
+                    <constraint firstAttribute="trailing" secondItem="hmp-u6-Wu4" secondAttribute="trailing" constant="20" id="ZVh-vk-dE2"/>
+                    <constraint firstItem="qop-Gq-nRz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hoC-ln-vqY"/>
+                    <constraint firstItem="hmp-u6-Wu4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="nzg-a7-uOO"/>
+                    <constraint firstItem="oys-wY-DHv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="42" id="xMC-mS-6wS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="separatorView" destination="oys-wY-DHv" id="8XW-I7-h0H"/>
+                <outlet property="statusButton" destination="qop-Gq-nRz" id="ELG-Ef-nxI"/>
+                <outlet property="taskDescription" destination="eqx-EQ-HWE" id="xlJ-64-Wd3"/>
+                <outlet property="taskTitle" destination="eVI-cL-rpk" id="cv6-ii-TjD"/>
+                <outlet property="titleAndDescription" destination="hmp-u6-Wu4" id="45u-ee-JdC"/>
+            </connections>
+            <point key="canvasLocation" x="138.93129770992365" y="14.788732394366198"/>
+        </tableViewCell>
+    </objects>
+</document>

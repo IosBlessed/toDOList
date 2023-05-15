@@ -66,4 +66,8 @@ class Storage: StorageInterface {
     func swapTasks(sourceIndex: Int, targetIndex: Int) {
         storagedTasks.swapAt(sourceIndex, targetIndex)
     }
+    
+    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus) {
+        storagedTasks[index].changeTaskStatus(with: status)
+    }
 }

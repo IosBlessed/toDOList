@@ -17,7 +17,8 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
     }
 
     func requestDataFromStorage() {
-        if let tasks = storage.getTasks(), let sections = storage.getSections() {
+        if let tasks = storage.getTasks(),
+           let sections = storage.getSections() {
             view.showTableViewBackgroundImage(with: tasks.isEmpty)
             view.updateTasksList(tasks: tasks, sections: sections)
         }
@@ -25,26 +26,38 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
     
     func getTasksBySection(with section: TaskStatus) -> [TaskItem]? {
         guard let tasks = storage.getTasks() else { return nil }
-        return tasks.filter { task in
-            task.status == section
-        }
+        let sectionedTasks = tasks.filter { $0.status == section }
+        return sectionedTasks.isEmpty ? nil : sectionedTasks
     }
     
     func removeTaskFromList(task: TaskItem?) {
         storage.removeTask(task: task)
+        removeSectionIfEmpty()
+        requestDataFromStorage()
+    }
+    
+    private func removeSectionIfEmpty() {
         guard let sections = storage.getSections() else { return }
         let emptySections = sections.filter { section in
-            guard let tasks = self.getTasksBySection(with: section) else { return false }
-            return tasks.isEmpty
+            guard self.getTasksBySection(with: section) != nil else { return true }
+            return false
         }
         for emptySection in emptySections {
             storage.removeSection(section: emptySection)
         }
-        requestDataFromStorage()
+    }
+    
+    private func createSectionIfNotExists(with section: TaskStatus) {
+        guard let storagedSections = storage.getSections() else { return }
+        if !storagedSections.contains(section) {
+            storage.addSection(section: section)
+        }
     }
     
     func rearrangeTask(sourceIndex: Int?, targetIndex: Int?) {
-        guard let sourceIndex, let targetIndex else { return }
+        guard let sourceIndex,
+              let targetIndex
+        else { return }
         storage.swapTasks(sourceIndex: sourceIndex, targetIndex: targetIndex)
         requestDataFromStorage()
     }
@@ -55,8 +68,9 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
     }
     
     func processSwitchingTask(source sourceIndex: IndexPath, destination destinationIndex: IndexPath) {
-        guard let sections = storage.getSections() else { return }
-        guard let tasks = storage.getTasks() else { return }
+        guard let sections = storage.getSections(),
+              let tasks = storage.getTasks()
+        else { return }
         let sourceSection = sections[sourceIndex.section]
         let targetSection = sections[destinationIndex.section]
         if sourceSection == targetSection {
@@ -70,5 +84,16 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
         } else {
             view.updateTasksList(tasks: tasks, sections: sections)
         }
+    }
+    
+    func taskStatusButtonPressed(for task: TaskItem?) {
+        guard let task,
+              let indexOfCurrentTask = storage.getTasks()?.firstIndex(where: {$0.hashValue == task.hashValue})
+        else { return }
+        let changeToStatus: TaskStatus = task.status == .active ? .completed : .active
+        storage.switchTaskStatus(taskIndex: indexOfCurrentTask, taskStatus: changeToStatus)
+        removeSectionIfEmpty()
+        createSectionIfNotExists(with: changeToStatus)
+        requestDataFromStorage()
     }
 }

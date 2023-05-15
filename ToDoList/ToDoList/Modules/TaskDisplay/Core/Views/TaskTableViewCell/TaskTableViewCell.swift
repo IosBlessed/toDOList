@@ -33,6 +33,7 @@ class TaskTableViewCell: UITableViewCell {
         }
     }
     var isLast: Bool = false
+    var closureButtonStatusPressed: () -> Void = { }
     private var task: TaskItem!
     static let nib: UINib = {
         return UINib(
@@ -88,5 +89,9 @@ class TaskTableViewCell: UITableViewCell {
                 NSAttributedString.Key.foregroundColor: DesignedSystemColors.textSubtitle
             ]
         )
+    }
+    
+    @IBAction func buttonStatusAction(_ sender: Any) {
+        closureButtonStatusPressed()
     }
 }

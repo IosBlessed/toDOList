@@ -29,5 +29,6 @@ class DesignedSystemColors {
     ).cgColor
     static let editRowButton = UIColor(red: 0.913, green: 0.774, blue: 0.281, alpha: 1)
     static let deleteRowButton = UIColor(red: 0.831, green: 0.31, blue: 0.31, alpha: 1)
+    static let completedRowButton = UIColor(red: 0.231, green: 0.692, blue: 0.526, alpha: 1)
     static let defaultWhiteColor = UIColor(white: 1.0, alpha: 1.0)
 }

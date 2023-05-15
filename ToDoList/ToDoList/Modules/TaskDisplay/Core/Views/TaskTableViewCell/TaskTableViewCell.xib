@@ -50,6 +50,9 @@
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title=""/>
+                        <connections>
+                            <action selector="buttonStatusAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3fR-8c-dO1"/>
+                        </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oys-wY-DHv">
                         <rect key="frame" x="42" y="59" width="278" height="1"/>

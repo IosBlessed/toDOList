@@ -13,7 +13,11 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     @IBOutlet private weak var addTaskButton: UIButton!
     // MARK: - Properties
     var presenter: TaskDisplayPresenterInterface?
-    private var tasks = [TaskItem]()
+    private var tasks = [TaskItem]() {
+        didSet {
+            customViewForRightBarButton.isHidden = tasks.isEmpty
+        }
+    }
     private var sections = [TaskStatus]()
     private lazy var customViewForRightBarButton: UIView = {
         let customView = UIView(frame: .zero)
@@ -50,7 +54,6 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         )
         return label
     }()
-    
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -216,6 +219,9 @@ extension TaskDisplayViewController: UITableViewDataSource {
         let tasks = presenter?.getTasksBySection(with: section) ?? []
         let task = tasks[indexPath.row]
         cell?.setupCell(task: task)
+        cell?.closureButtonStatusPressed = { [weak self] in
+            self?.presenter?.taskStatusButtonPressed(for: task)
+        }
         return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }
     
@@ -264,6 +270,22 @@ extension TaskDisplayViewController: UITableViewDataSource {
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return swipeActions
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let taskList = presenter?.getTasksBySection(with: sections[indexPath.section])
+        let task = taskList?[indexPath.row]
+        let completedAction = configureContextualSwipeAction(
+            image: UIImage(systemName: "checkmark"),
+            backgroundColor: DesignedSystemColors.completedRowButton
+        ) { (_, _, _) in
+            self.presenter?.taskStatusButtonPressed(for: task)
+        }
+        let swipeAction = UISwipeActionsConfiguration(actions: [completedAction])
+        return swipeAction
     }
     
     private func configureContextualSwipeAction(

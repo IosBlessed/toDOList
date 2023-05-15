@@ -12,5 +12,6 @@ protocol TaskDisplayPresenterInterface: AnyObject {
     func rearrangeTask(sourceIndex: Int?, targetIndex: Int?)
     func editTableViewButtonTapped(with status: Bool)
     func processSwitchingTask(source sourceIndex: IndexPath, destination destinationIndex: IndexPath)
+    func taskStatusButtonPressed(for task: TaskItem?) 
 }
 

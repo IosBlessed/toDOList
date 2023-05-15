@@ -68,6 +68,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = DesignedSystemColors.primary
         setupNavigationBar()
         registerBackButtonTapRecognizer()
         registerKeyboardAppearanceNotification()
@@ -79,7 +80,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     }
     
     override func viewDidLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        super.viewDidLayoutSubviews()
         configureBarButtonItemView()
     }
     

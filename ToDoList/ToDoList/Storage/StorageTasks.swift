@@ -62,4 +62,8 @@ class Storage: StorageInterface {
             storagedSections.remove(at: indexForRemove)
         }
     }
+    
+    func swapTasks(sourceIndex: Int, targetIndex: Int) {
+        storagedTasks.swapAt(sourceIndex, targetIndex)
+    }
 }

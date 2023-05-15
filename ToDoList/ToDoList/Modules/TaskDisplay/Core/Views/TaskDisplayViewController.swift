@@ -15,16 +15,72 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     var presenter: TaskDisplayPresenterInterface?
     private var tasks = [TaskItem]()
     private var sections = [TaskStatus]()
+    private lazy var customViewForRightBarButton: UIView = {
+        let customView = UIView(frame: .zero)
+        guard
+            let navigationBarWidth = self.navigationController?.navigationBar.bounds.width,
+            let navigationBarHeight = self.navigationController?.navigationBar.bounds.height
+        else { return customView }
+        customView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: navigationBarWidth / 5.0,
+            height: navigationBarHeight / 3.0
+        )
+        customView.backgroundColor = .clear
+        return customView
+    }()
+    private lazy var rightBarButtonImageView: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "list.dash")
+        imageView.tintColor = DesignedSystemColors.accent
+        return imageView
+    }()
+    private lazy var rightBarButtonLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.attributedText = NSAttributedString(
+            string: "Edit",
+            attributes: [
+                NSAttributedString.Key.foregroundColor: DesignedSystemColors.accent,
+                NSAttributedString.Key.font: DesignedSystemFonts.subtitle
+            ]
+        )
+        return label
+    }()
+    
 // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = DesignedSystemColors.primary
         setupNavigationBar()
         setupTaskTableView()
+        registerEditButtonTapRecognizer()
+    }
+    
+    private func registerEditButtonTapRecognizer() {
+        let editTap = UITapGestureRecognizer(target: self, action: #selector(editTaskTableView))
+        customViewForRightBarButton.addGestureRecognizer(editTap)
+    }
+    
+    @objc func editTaskTableView() {
+        presenter?.editTableViewButtonTapped(with: tasksTableView.isEditing)
+    }
+    
+    func setTableViewToEditingMode(perform status: Bool) {
+        tasksTableView.setEditing(status, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         requestPresenterToExtractData()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        configureRightBarButtonSection()
     }
     
     private func requestPresenterToExtractData() {
@@ -39,6 +95,9 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        let rightBarButtonItem = UIBarButtonItem(customView: customViewForRightBarButton)
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 
     private func setupTaskTableView() {
@@ -61,6 +120,37 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         tasksTableView.rowHeight = UITableView.automaticDimension
         tasksTableView.separatorStyle = .none
         view.layoutSubviews()
+    }
+    
+    private func configureRightBarButtonSection() {
+        customViewForRightBarButton.addSubview(rightBarButtonImageView)
+        customViewForRightBarButton.addSubview(rightBarButtonLabel)
+        
+        rightBarButtonImageView
+            .topAnchor
+            .constraint(equalTo: customViewForRightBarButton.topAnchor, constant: 2).isActive = true
+        rightBarButtonImageView
+            .leadingAnchor
+            .constraint(equalTo: customViewForRightBarButton.leadingAnchor, constant: 10).isActive = true
+        rightBarButtonImageView
+            .bottomAnchor
+            .constraint(equalTo: customViewForRightBarButton.bottomAnchor, constant: -2).isActive = true
+        rightBarButtonImageView
+            .widthAnchor
+            .constraint(equalToConstant: 20).isActive = true
+        
+        rightBarButtonLabel
+            .topAnchor
+            .constraint(equalTo: customViewForRightBarButton.topAnchor, constant: 2).isActive = true
+        rightBarButtonLabel
+            .leadingAnchor
+            .constraint(equalTo: rightBarButtonImageView.trailingAnchor, constant: 5).isActive = true
+        rightBarButtonLabel
+            .trailingAnchor
+            .constraint(equalTo: customViewForRightBarButton.trailingAnchor, constant: -10).isActive = true
+        rightBarButtonLabel
+            .bottomAnchor
+            .constraint(equalTo: customViewForRightBarButton.bottomAnchor, constant: -2).isActive = true
     }
     
     func showTableViewBackgroundImage(with isHidden: Bool) {
@@ -129,6 +219,18 @@ extension TaskDisplayViewController: UITableViewDataSource {
         return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        presenter?.processSwitchingTask(source: sourceIndexPath, destination: destinationIndexPath)
+    }
+    
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
@@ -174,5 +276,14 @@ extension TaskDisplayViewController: UITableViewDataSource {
         action.backgroundColor = backgroundColor
         action.image = image
         return action
+    }
+}
+
+extension TaskDisplayViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        return true
     }
 }

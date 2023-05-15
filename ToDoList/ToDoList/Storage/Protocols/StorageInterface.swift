@@ -13,5 +13,4 @@ protocol StorageInterface: AnyObject {
     func removeSection(section: TaskStatus)
     func addSection(section: TaskStatus)
     func swapTasks(sourceIndex: Int, targetIndex: Int)
-    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus)
 }

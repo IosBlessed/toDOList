@@ -42,6 +42,7 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
                 status: .active,
                 title: title,
                 description: description
+                
             )
             self.addTaskToStorage(task: task)
             return

@@ -10,7 +10,6 @@ class Storage: StorageInterface {
 
     private var storagedTasks = [TaskItem]()
     private var storagedSections = [TaskStatus]()
-    
     init() {
         storagedSections = [
             .active,
@@ -65,9 +64,5 @@ class Storage: StorageInterface {
     
     func swapTasks(sourceIndex: Int, targetIndex: Int) {
         storagedTasks.swapAt(sourceIndex, targetIndex)
-    }
-    
-    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus) {
-        storagedTasks[index].changeTaskStatus(with: status)
     }
 }

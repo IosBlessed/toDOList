@@ -4,6 +4,8 @@
 //
 //  Created by Никита Данилович on 08.05.2023.
 //
+import Foundation
+
 class TaskManagerPresenter: TaskManagerPresenterInterface {
   
     private unowned let view: TaskManagerViewControllerInterface
@@ -28,7 +30,11 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
                 storage.addSection(section: task.status)
             }
         }
-        storage.addTask(status: task.status, title: task.title, description: task.description, currentTime: task.timeSinceLastChange)
+        storage.addTask(
+            status: task.status,
+            title: task.title,
+            description: task.description
+        )
     }
     
     private func editTask(task: TaskItem?, newTitle: String, newDescription: String?) {
@@ -38,12 +44,10 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     func taskManagerButtonTapped(title: String?, description: String?) {
         guard let title = title else { return }
         guard let task = task else {
-            let currentTime = storage.getCurrentTime()
             let task = TaskItem(
                 status: .active,
                 title: title,
-                description: description,
-                timeSinceLastChange: currentTime
+                description: description
             )
             self.addTaskToStorage(task: task)
             return
@@ -54,18 +58,18 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     func assignRoleToTaskManager() {
         guard let task = task else {
             view.initialViewSetup(
-                title: "Add Task",
+                title: TaskManagerLocalization.navigationAddTaskTitle,
                 buttonIsHidden: true,
-                buttonTitle: "Create Task",
+                buttonTitle: TaskManagerLocalization.addTaskButtonTitle,
                 taskTitle: nil,
                 taskDescription: nil
             )
             return
         }
         view.initialViewSetup(
-            title: "Edit Task",
+            title: TaskManagerLocalization.navigationEditTaskTitle,
             buttonIsHidden: false,
-            buttonTitle: "Save Task",
+            buttonTitle: TaskManagerLocalization.editTaskButtonTitle,
             taskTitle: task.title,
             taskDescription: task.description
         )

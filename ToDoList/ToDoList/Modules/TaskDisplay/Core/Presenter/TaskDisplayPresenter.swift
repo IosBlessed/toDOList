@@ -91,8 +91,7 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
               let indexOfCurrentTask = storage.getTasks()?.firstIndex(where: {$0.hashValue == task.hashValue})
         else { return }
         let changeToStatus: TaskStatus = task.status == .active ? .completed : .active
-        let currentTime = storage.getCurrentTime()
-        storage.switchTaskStatus(taskIndex: indexOfCurrentTask, taskStatus: changeToStatus, currentTime: currentTime)
+        storage.switchTaskStatus(taskIndex: indexOfCurrentTask, taskStatus: changeToStatus)
         removeSectionIfEmpty()
         createSectionIfNotExists(with: changeToStatus)
         requestDataFromStorage()

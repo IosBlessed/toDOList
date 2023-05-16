@@ -6,7 +6,7 @@
 //
 import Foundation
 protocol StorageInterface: AnyObject {
-    func addTask(status: TaskStatus, title: String, description: String?, currentTime: Int32)
+    func addTask(status: TaskStatus, title: String, description: String?)
     func getTasks() -> [TaskItem]?
     func getSections() -> [TaskStatus]?
     func modifyExistingTask(task: TaskItem?, newTitle: String, newDescription: String?)
@@ -14,6 +14,5 @@ protocol StorageInterface: AnyObject {
     func removeSection(section: TaskStatus)
     func addSection(section: TaskStatus)
     func swapTasks(sourceIndex: Int, targetIndex: Int)
-    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus, currentTime: Int32)
-    func getCurrentTime() -> Int32
+    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus)
 }

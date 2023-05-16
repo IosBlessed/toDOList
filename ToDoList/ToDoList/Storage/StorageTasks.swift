@@ -19,26 +19,27 @@ class Storage: StorageInterface {
             .active,
             .completed
         ]
-        let currentTime = getCurrentTime()
-        addTask(status: .active, title: "First task", description: "First task desriptional for testing", currentTime: currentTime)
+        addTask(
+            status: .active,
+            title: "First task",
+            description: "First task desriptional for testing"
+        )
         addTask(
             status: .completed,
             title: "Second task",
-            description: "Second task has to be done till the end of the day.",
-            currentTime: currentTime
+            description: "Second task has to be done till the end of the day."
         )
-        addTask(status: .completed, title: "Third task", description: nil, currentTime: currentTime)
-        addTask(status: .active, title: "Fourth task", description: nil, currentTime: currentTime)
-        addTask(status: .completed, title: "Fifth task", description: nil, currentTime: currentTime)
+        addTask(status: .completed, title: "Third task", description: nil)
+        addTask(status: .active, title: "Fourth task", description: nil)
+        addTask(status: .completed, title: "Fifth task", description: nil)
     }
 
-    func addTask(status: TaskStatus, title: String, description: String?, currentTime: Int32) {
+    func addTask(status: TaskStatus, title: String, description: String?) {
         storagedTasks.append(
             TaskItem(
                 status: status,
                 title: title,
-                description: description,
-                timeSinceLastChange: currentTime
+                description: description
             )
         )
     }
@@ -48,14 +49,6 @@ class Storage: StorageInterface {
         if let indexOfDetailedTask = storagedTasks.firstIndex(where: { $0.hashValue == task.hashValue }) {
             storagedTasks[indexOfDetailedTask].changeTaskDetails(title: newTitle, description: newDescription)
         }
-    }
-    
-    func getCurrentTime() -> Int32 {
-        let timeToIntervalFrom = DateComponents(calendar: .current, year: 2023, month: 5, day: 15).date!
-        let currentDate = Date()
-        let intervalSince = currentDate.timeIntervalSince(timeToIntervalFrom)
-        let time = Int32(intervalSince)
-        return time
     }
     
     func removeTask(task: TaskItem?) {
@@ -87,7 +80,7 @@ class Storage: StorageInterface {
         storagedTasks.swapAt(sourceIndex, targetIndex)
     }
     
-    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus, currentTime: Int32) {
-        storagedTasks[index].changeTaskStatus(with: status, time: currentTime)
+    func switchTaskStatus(taskIndex index: Int, taskStatus status: TaskStatus) {
+        storagedTasks[index].changeTaskStatus(with: status)
     }
 }

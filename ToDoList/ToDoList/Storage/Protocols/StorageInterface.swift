@@ -4,6 +4,7 @@
 //
 //  Created by Никита Данилович on 04.05.2023.
 //
+import Foundation
 protocol StorageInterface: AnyObject {
     func addTask(status: TaskStatus, title: String, description: String?)
     func getTasks() -> [TaskItem]?

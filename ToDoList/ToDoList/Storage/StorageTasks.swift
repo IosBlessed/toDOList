@@ -8,15 +8,22 @@ import UIKit
 
 class Storage: StorageInterface {
 
-    private var storagedTasks = [TaskItem]()
+    private var storagedTasks = [TaskItem]() {
+        didSet {
+            storagedTasks = storagedTasks.sorted { $0.timeSinceLastChange > $1.timeSinceLastChange }
+        }
+    }
     private var storagedSections = [TaskStatus]()
-    
     init() {
         storagedSections = [
             .active,
             .completed
         ]
-        addTask(status: .active, title: "First task", description: "First task desriptional for testing")
+        addTask(
+            status: .active,
+            title: "First task",
+            description: "First task desriptional for testing"
+        )
         addTask(
             status: .completed,
             title: "Second task",
@@ -28,7 +35,13 @@ class Storage: StorageInterface {
     }
 
     func addTask(status: TaskStatus, title: String, description: String?) {
-        storagedTasks.insert(TaskItem(status: status, title: title, description: description), at: 0)
+        storagedTasks.append(
+            TaskItem(
+                status: status,
+                title: title,
+                description: description
+            )
+        )
     }
     
     func modifyExistingTask(task: TaskItem?, newTitle: String, newDescription: String?) {

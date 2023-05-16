@@ -4,7 +4,6 @@
 //
 //  Created by Никита Данилович on 11.05.2023.
 //
-
 import UIKit
 
 extension UIViewController {
@@ -20,10 +19,16 @@ extension UIViewController {
         completion: @escaping (AlertAction) -> Void
     ) -> UIAlertController {
         let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertButtonOK = UIAlertAction(title: "YES", style: .destructive) { _ in
+        let alertButtonOK = UIAlertAction(
+            title: TaskDisplayLocalization.tableViewActionRowAlertActionYes,
+            style: .destructive
+        ) { _ in
             completion(.delete)
         }
-        let alertButtonClose = UIAlertAction(title: "NO", style: .cancel) { _ in
+        let alertButtonClose = UIAlertAction(
+            title: TaskDisplayLocalization.tableViewActionRowAlertActionNo,
+            style: .cancel
+        ) { _ in
             completion(.leave)
         }
         alertViewController.addAction(alertButtonOK)

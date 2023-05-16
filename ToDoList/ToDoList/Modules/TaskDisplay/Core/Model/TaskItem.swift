@@ -7,14 +7,24 @@
 import UIKit
 
 enum TaskStatus: String, CaseIterable {
-    case active = "Active"
-    case completed = "Completed"
+    case active
+    case completed
+    
+    func localizedTitle() -> String {
+        switch self {
+        case .active:
+            return TaskDisplayLocalization.tableViewActiveSectionTitle
+        case .completed:
+            return TaskDisplayLocalization.tableViewCompletedSectionTitle
+        }
+    }
 }
 
 struct TaskItem: Hashable {
     var status: TaskStatus
     var title: String
     var description: String?
+    var timeSinceLastChange = Date()
     
     mutating func changeTaskDetails(title: String, description: String?) {
         self.title = title
@@ -23,5 +33,6 @@ struct TaskItem: Hashable {
     
     mutating func changeTaskStatus(with status: TaskStatus) {
         self.status = status
+        self.timeSinceLastChange = Date()
     }
 }

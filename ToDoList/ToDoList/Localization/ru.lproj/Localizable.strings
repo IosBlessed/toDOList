@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  ToDoList
+
+  Created by Никита Данилович on 16.05.2023.
+  
+*/
+// MARK: - Task Display
+"task_display.navigation_bar.title.text" = "Список Задач";
+"task_display.navigation_bar.edit_section.text" = "Ред.";
+"task_display.table_view.header_section.active.text" = "Активные";
+"task_display.table_view.header_section.completed.text" = "Завершенные";
+// MARK: - Task Manager
+"task_manager.navigation_bar.add_task.text" = "Добавить Задачу";
+"task_manager.navigation_bar.edit_task.text" = "Редактировать";
+"task_manager.text_field_title.placeholder.text" = "Введите название задачи...";
+"task_manager.text_field_description.placeholder.text" = "Введите краткое описание (опционально)...";
+"task_manager.navigation_bar.back_button.text" = "Назад";
+"task_manager.bottom_action_button.add_task.text" = "Создать Задачу";
+"task_manager.bottom_action_button.edit_task.text" = "Сохранить Задачу";
+// MARK: - Alert
+"task_display.delete_task_action.alert_title.text" = "Осторожно!";
+"task_display.delete_task_action.alert_message.text" = "Вы уверены, что собираетесь безвозвратно удалить задачу?";
+"task_display.delete_task_action.alert_action_yes.text" = "Да";
+"task_display.delete_task_action.alert_action_no.text" = "Нет";
+
+
+
+
+

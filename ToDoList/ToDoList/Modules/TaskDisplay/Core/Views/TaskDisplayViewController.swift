@@ -10,7 +10,13 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
 
 // MARK: - Outlets
     @IBOutlet private weak var tasksTableView: UITableView!
-    @IBOutlet private weak var addTaskButton: UIButton!
+    @IBOutlet private weak var addTaskButton: UIButton! {
+        didSet {
+            addTaskButton.layer.masksToBounds = true
+            addTaskButton.layer.cornerRadius = addTaskButton.bounds.height / 2
+            addTaskButton.contentVerticalAlignment = .bottom
+        }
+    }
     // MARK: - Properties
     var presenter: TaskDisplayPresenterInterface?
     private var tasks = [TaskItem]() {
@@ -46,7 +52,7 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.attributedText = NSAttributedString(
-            string: "Edit",
+            string: TaskDisplayLocalization.navigationEditSectionTitle,
             attributes: [
                 NSAttributedString.Key.foregroundColor: DesignedSystemColors.accent,
                 NSAttributedString.Key.font: DesignedSystemFonts.subtitle
@@ -91,7 +97,7 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     }
 
     private func setupNavigationBar() {
-        title = "Task Manager"
+        title = TaskDisplayLocalization.navigationTitle
         navigationController?.navigationBar.tintColor = DesignedSystemColors.textPrimary
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.extendedLayoutIncludesOpaqueBars = true
@@ -190,7 +196,7 @@ extension TaskDisplayViewController: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TaskTableViewHeaderFooterView.identifier
         ) as? TaskTableViewHeaderFooterView
-        let title = sections[section].rawValue
+        let title = sections[section].localizedTitle()
         headerView?.initializeHeaderFooterSection(with: title)
         return headerView
     }
@@ -255,8 +261,8 @@ extension TaskDisplayViewController: UITableViewDataSource {
             backgroundColor: DesignedSystemColors.deleteRowButton
         ) { (_, _, _) in
             let alert = self.alertMessage(
-                title: "WARNING!",
-                message: "Are you sure that you want to delete task?"
+                title: TaskDisplayLocalization.tableViewActionRowAlertTitle,
+                message: TaskDisplayLocalization.tableViewActionRowAlertMessage
             ) { userAction in
                 switch userAction {
                 case .delete:

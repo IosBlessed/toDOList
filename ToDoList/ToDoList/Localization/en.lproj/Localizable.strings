@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  ToDoList
+
+  Created by Никита Данилович on 16.05.2023.
+  
+*/
+// MARK: - Task Display
+"task_display.navigation_bar.title.text" = "Task Manager";
+"task_display.navigation_bar.edit_section.text" = "Edit";
+"task_display.table_view.header_section.active.text" = "Active";
+"task_display.table_view.header_section.completed.text" = "Completeed";
+// MARK: - Task Manager
+"task_manager.navigation_bar.add_task.text" = "Add Task";
+"task_manager.navigation_bar.edit_task.text" = "Edit Task";
+"task_manager.text_field_title.placeholder.text" = "Enter your title...";
+"task_manager.text_field_description.placeholder.text" = "Enter an optional subtitle...";
+"task_manager.navigation_bar.back_button.text" = "Back";
+"task_manager.bottom_action_button.add_task.text" = "Create Task";
+"task_manager.bottom_action_button.edit_task.text" = "Save Task";
+// MARK: - Alert
+"task_display.delete_task_action.alert_title.text" = "Warning!";
+"task_display.delete_task_action.alert_message.text" = "Are you sure that you want to delete task?";
+"task_display.delete_task_action.alert_action_yes.text" = "Yes";
+"task_display.delete_task_action.alert_action_no.text" = "No";

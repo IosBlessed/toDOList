@@ -31,9 +31,6 @@ final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
     
     func editTableViewButtonTapped(with status: Bool) {
         view.setTableViewToEditingMode(perform: !status)
-        if !status {
-            dataService.reassignTaskActionDate()
-        }
     }
 
     func processTaskRowUserAction(for task: TaskItem, action: UserTaskAction) {

@@ -6,7 +6,7 @@
 //
 import Foundation
 protocol DataServiceInterface: AnyObject {
-    func addTaskToCoreData(title: String, description: String?)
+    func addTaskToCoreData(task: TaskItem)
     func getCoreDataTasks() -> [TaskListItem]?
     func getSections(for tasks: [TaskItem]) -> [TaskStatus]
     func changeStatusOfStoragedTask(for task: TaskItem, with newStatus: TaskStatus)

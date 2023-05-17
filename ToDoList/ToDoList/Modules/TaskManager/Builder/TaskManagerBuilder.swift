@@ -12,7 +12,8 @@ class TaskManagerBuilder {
     static let shared = TaskManagerBuilder()
 
     func buildTaskManager(with task: TaskItem? = nil) -> TaskManagerViewController {
-        let storage = DataService.shared as DataServiceInterface
+        let persistentContainer = CoreDataStack.shared.persistentContainer!
+        let storage = DataService(persistentContainer: persistentContainer)
         let taskManagerVC = TaskManagerViewController(
             nibName: String(describing: TaskManagerViewController.self),
             bundle: nil

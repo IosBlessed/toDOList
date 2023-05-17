@@ -70,7 +70,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         )
         return attributedString
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = DesignedSystemColors.primary
@@ -83,12 +83,12 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         super.viewWillAppear(animated)
         presenter?.assignRoleToTaskManager()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureBarButtonItemView()
     }
-    
+
     func initialViewSetup(
         title: String?,
         buttonIsHidden: Bool,
@@ -102,11 +102,11 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         self.titleTextField.text = taskTitle ?? ""
         self.subtitleTextField.text = taskDescription ?? ""
     }
-    
+
     deinit {
         removeKeyboardAppearanceNotification()
     }
-    
+
     @objc func keyboardWillShow(_ notification: NSNotification) {
         let keyboardHeight = getKeyboardHeight(notification)
         UIView.animate(withDuration: 1.0) { [weak self] in
@@ -114,14 +114,14 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
             self?.view.layoutIfNeeded()
         }
     }
-    
+
     @objc func keyboardWillHide(_ notification: NSNotification) {
         UIView.animate(withDuration: 1.0) { [weak self] in
             self?.addTaskBottomConstraint.constant = -10
             self?.view.layoutIfNeeded()
         }
     }
-    
+
     private func getKeyboardHeight(_ notification: NSNotification) -> CGFloat {
         guard let keyboardFrameValue = notification.userInfo?[
             UIResponder.keyboardFrameEndUserInfoKey
@@ -129,12 +129,12 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         let keyboardFrame = keyboardFrameValue.cgRectValue
         return keyboardFrame.height
     }
-    
+
     private func setupNavigationBar() {
         let barButtonItem = UIBarButtonItem(customView: barButtonCustomView)
         navigationItem.leftBarButtonItem = barButtonItem
     }
-    
+
     private func registerKeyboardAppearanceNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -149,7 +149,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
             object: nil
         )
     }
-    
+
     private func removeKeyboardAppearanceNotification() {
         NotificationCenter.default.removeObserver(
             self,
@@ -197,7 +197,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
             equalToConstant: 15
         ).isActive = true
     }
-    
+
     private func configureAddTaskButtonView() {
         let leadingConstraint = addTaskButton.leadingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.leadingAnchor,
@@ -230,7 +230,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         let tapHideKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapHideKeyboard)
     }
-    
+
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
@@ -238,11 +238,11 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     @objc func popToRootTaskManager() {
         navigationController?.popToRootViewController(animated: true)
     }
-    
+
     @objc func userInputText() {
         presenter?.processTitleTextField(text: titleTextField.text ?? "")
     }
-    
+
     func textFieldProcessed(with success: Bool) {
         addTaskButton.isHidden = !success
     }

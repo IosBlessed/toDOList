@@ -21,7 +21,7 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     var presenter: TaskDisplayPresenterInterface?
     private var tasks = [TaskItem]() {
         didSet {
-            customViewForRightBarButton.isHidden = tasks.isEmpty
+            self.customViewForRightBarButton.isHidden = tasks.isEmpty
         }
     }
     private var sections = [TaskStatus]()
@@ -85,6 +85,7 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         requestPresenterToExtractData()
+        presenter?.editTableViewButtonTapped(with: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -196,15 +197,15 @@ extension TaskDisplayViewController: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TaskTableViewHeaderFooterView.identifier
         ) as? TaskTableViewHeaderFooterView
-        let title = sections[section].localizedTitle()
-        headerView?.initializeHeaderFooterSection(with: title)
+        let section = sections[section].localizedTitle()
+        headerView?.initializeHeaderFooterSection(with: section)
         return headerView
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as? TaskTableViewCell
         let section = sections[indexPath.section]
-        let tasks = presenter?.getTasksBySection(with: section) ?? []
+        guard let tasks = presenter?.getTasksBySection(status: section) else { return }
         let task = tasks[indexPath.row]
         cell?.isLast = indexPath.row == tasks.count - 1
         cell?.setupCell(task: task)
@@ -215,18 +216,18 @@ extension TaskDisplayViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections[section]
-        let tasks = presenter?.getTasksBySection(with: section) ?? []
-        return tasks.count
+        let sectionedTasks = presenter?.getTasksBySection(status: section)
+        return sectionedTasks?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
         let section = sections[indexPath.section]
-        let tasks = presenter?.getTasksBySection(with: section) ?? []
-        let task = tasks[indexPath.row]
+        let sectionedTasks = presenter?.getTasksBySection(status: section)
+        guard let task = sectionedTasks?[indexPath.row] else { return UITableViewCell(frame: .zero) }
         cell?.setupCell(task: task)
         cell?.closureButtonStatusPressed = { [weak self] in
-            self?.presenter?.taskStatusButtonPressed(for: task)
+            self?.presenter?.processTaskRowUserAction(for: task, action: .switchStatus)
         }
         return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
     }
@@ -247,8 +248,7 @@ extension TaskDisplayViewController: UITableViewDataSource {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let taskList = presenter?.getTasksBySection(with: sections[indexPath.section])
-        let task = taskList?[indexPath.row]
+        let task = tasks[indexPath.row]
         let editAction = configureContextualSwipeAction(
             image: UIImage(systemName: "pencil.circle.fill"),
             backgroundColor: DesignedSystemColors.editRowButton
@@ -267,7 +267,7 @@ extension TaskDisplayViewController: UITableViewDataSource {
                 switch userAction {
                 case .delete:
                     tableView.reloadRows(at: [indexPath], with: .left)
-                    self.presenter?.removeTaskFromList(task: task)
+                    self.presenter?.processTaskRowUserAction(for: task, action: .deleteTask)
                 case .leave:
                     tableView.reloadRows(at: [indexPath], with: .fade)
                 }
@@ -282,13 +282,13 @@ extension TaskDisplayViewController: UITableViewDataSource {
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let taskList = presenter?.getTasksBySection(with: sections[indexPath.section])
-        let task = taskList?[indexPath.row]
+        let taskList = presenter?.getTasksBySection(status: sections[indexPath.section])
+        guard let task = taskList?[indexPath.row] else { return nil }
         let completedAction = configureContextualSwipeAction(
             image: UIImage(systemName: "checkmark"),
             backgroundColor: DesignedSystemColors.completedRowButton
         ) { (_, _, _) in
-            self.presenter?.taskStatusButtonPressed(for: task)
+            self.presenter?.processTaskRowUserAction(for: task, action: .switchStatus)
         }
         let swipeAction = UISwipeActionsConfiguration(actions: [completedAction])
         return swipeAction

@@ -9,7 +9,7 @@
 "task_display.navigation_bar.title.text" = "Task Manager";
 "task_display.navigation_bar.edit_section.text" = "Edit";
 "task_display.table_view.header_section.active.text" = "Active";
-"task_display.table_view.header_section.completed.text" = "Completeed";
+"task_display.table_view.header_section.completed.text" = "Completed";
 // MARK: - Task Manager
 "task_manager.navigation_bar.add_task.text" = "Add Task";
 "task_manager.navigation_bar.edit_task.text" = "Edit Task";

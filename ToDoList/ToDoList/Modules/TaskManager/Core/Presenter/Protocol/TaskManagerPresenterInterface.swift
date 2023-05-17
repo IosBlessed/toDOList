@@ -7,5 +7,5 @@
 protocol TaskManagerPresenterInterface: AnyObject {
     func assignRoleToTaskManager()
     func processTitleTextField(text: String)
-    func taskManagerButtonTapped(title: String?, description: String?)
+    func taskManagerButtonTapped(title: String, description: String?)
 }

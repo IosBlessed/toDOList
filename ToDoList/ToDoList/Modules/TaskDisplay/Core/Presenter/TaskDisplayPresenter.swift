@@ -9,91 +9,77 @@ import UIKit
 final class TaskDisplayPresenter: TaskDisplayPresenterInterface {
     
     unowned private let view: TaskDisplayViewControllerInterface
-    private let storage: StorageInterface
+    private let dataService: DataServiceInterface
 
-    init(viewController: TaskDisplayViewControllerInterface, storage: StorageInterface) {
+    init(viewController: TaskDisplayViewControllerInterface, dataService: DataServiceInterface) {
         self.view = viewController
-        self.storage = storage
+        self.dataService = dataService
     }
 
     func requestDataFromStorage() {
-        if let tasks = storage.getTasks(),
-           let sections = storage.getSections() {
-            view.showTableViewBackgroundImage(with: tasks.isEmpty)
-            view.updateTasksList(tasks: tasks, sections: sections)
-        }
+        guard let tasks = processCoreDataTasksToTaskItems() else { return }
+        let sections = dataService.getSections(for: tasks)
+        view.updateTasksList(tasks: tasks, sections: sections)
+        view.showTableViewBackgroundImage(with: tasks.isEmpty)
     }
     
-    func getTasksBySection(with section: TaskStatus) -> [TaskItem]? {
-        guard let tasks = storage.getTasks() else { return nil }
-        let sectionedTasks = tasks.filter { $0.status == section }
-        return sectionedTasks.isEmpty ? nil : sectionedTasks
-    }
-    
-    func removeTaskFromList(task: TaskItem?) {
-        storage.removeTask(task: task)
-        removeSectionIfEmpty()
-        requestDataFromStorage()
-    }
-    
-    private func removeSectionIfEmpty() {
-        guard let sections = storage.getSections() else { return }
-        let emptySections = sections.filter { section in
-            guard self.getTasksBySection(with: section) != nil else { return true }
-            return false
-        }
-        for emptySection in emptySections {
-            storage.removeSection(section: emptySection)
-        }
-    }
-    
-    private func createSectionIfNotExists(with section: TaskStatus) {
-        guard let storagedSections = storage.getSections() else { return }
-        if !storagedSections.contains(section) {
-            storage.addSection(section: section)
-        }
-    }
-    
-    func rearrangeTask(sourceIndex: Int?, targetIndex: Int?) {
-        guard let sourceIndex,
-              let targetIndex
-        else { return }
-        storage.swapTasks(sourceIndex: sourceIndex, targetIndex: targetIndex)
-        requestDataFromStorage()
+    func getTasksBySection(status: TaskStatus) -> [TaskItem]? {
+        guard let tasks = processCoreDataTasksToTaskItems() else { return nil }
+        let tasksBySection = tasks.filter { $0.status == status }
+        return tasksBySection
     }
     
     func editTableViewButtonTapped(with status: Bool) {
-        let newState = status == false
-        view.setTableViewToEditingMode(perform: newState)
+        view.setTableViewToEditingMode(perform: !status)
+        if !status {
+            dataService.reassignTaskActionDate()
+        }
+    }
+
+    func processTaskRowUserAction(for task: TaskItem, action: UserTaskAction) {
+        switch action {
+        case .switchStatus:
+            let newTaskStatus: TaskStatus = task.status == .active ? .completed : .active
+            dataService.changeStatusOfStoragedTask(for: task, with: newTaskStatus)
+        case .deleteTask:
+            dataService.removeTask(task: task)
+        }
+        requestDataFromStorage()
     }
     
     func processSwitchingTask(source sourceIndex: IndexPath, destination destinationIndex: IndexPath) {
-        guard let sections = storage.getSections(),
-              let tasks = storage.getTasks()
-        else { return }
+        guard let tasks = processCoreDataTasksToTaskItems() else { return }
+        let sections = dataService.getSections(for: tasks)
         let sourceSection = sections[sourceIndex.section]
         let targetSection = sections[destinationIndex.section]
         if sourceSection == targetSection {
-            if let sectionedTasks = getTasksBySection(with: sourceSection) {
+            if let sectionedTasks = getTasksBySection(status: sourceSection) {
                 let sourceTask = sectionedTasks[sourceIndex.row]
                 let targetTask = sectionedTasks[destinationIndex.row]
                 let indexOfSourceTask = tasks.firstIndex(of: sourceTask)
                 let indexOfTargetTask = tasks.firstIndex(of: targetTask)
-                rearrangeTask(sourceIndex: indexOfSourceTask, targetIndex: indexOfTargetTask)
+                rearrangeTask(sourceIndexRow: indexOfSourceTask, targetIndexRow: indexOfTargetTask)
             }
         } else {
             view.updateTasksList(tasks: tasks, sections: sections)
         }
     }
     
-    func taskStatusButtonPressed(for task: TaskItem?) {
-        guard let task,
-              let indexOfCurrentTask = storage.getTasks()?.firstIndex(where: {$0.hashValue == task.hashValue})
-        else { return }
-        let changeToStatus: TaskStatus = task.status == .active ? .completed : .active
-        storage.switchTaskStatus(taskIndex: indexOfCurrentTask, taskStatus: changeToStatus)
-        removeSectionIfEmpty()
-        createSectionIfNotExists(with: changeToStatus)
+    private func processCoreDataTasksToTaskItems() -> [TaskItem]? {
+        guard let coreTasks = dataService.getCoreDataTasks() else { return nil }
+        let tasks = coreTasks.map { coreTask in
+            let title = coreTask.title
+            let description = coreTask.subtitle
+            let status: TaskStatus = coreTask.isActive ? .active : .completed
+            let actionTime = coreTask.actionTime
+            return TaskItem(status: status, title: title, description: description, actionTime: actionTime)
+        }
+        return tasks
+    }
+    
+    private func rearrangeTask(sourceIndexRow: Int?, targetIndexRow: Int?) {
+        guard let sourceIndexRow, let targetIndexRow else { return }
+        dataService.rearrangeCoreDataTasks(source: sourceIndexRow, target: targetIndexRow)
         requestDataFromStorage()
     }
 }

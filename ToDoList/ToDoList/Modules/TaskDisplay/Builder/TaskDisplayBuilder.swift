@@ -11,14 +11,14 @@ final class TaskDisplayBuilder {
     static let shared = TaskDisplayBuilder()
 
     func buildTaskDisplay() -> TaskDisplayViewController {
-        let storage = (UIApplication.shared.delegate as? AppDelegate)!.storage
+        let storage = DataService.shared as DataServiceInterface
         let taskDisplayVC = TaskDisplayViewController(
             nibName: String(describing: TaskDisplayViewController.self),
             bundle: nil
         )
         let taskDisplayPresenter = TaskDisplayPresenter(
             viewController: taskDisplayVC,
-            storage: storage
+            dataService: storage
         )
         taskDisplayVC.presenter = taskDisplayPresenter
         return taskDisplayVC

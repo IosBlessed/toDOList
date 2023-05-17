@@ -248,7 +248,8 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     }
 
     @IBAction func addTaskAction(_ sender: Any) {
-        presenter?.taskManagerButtonTapped(title: self.titleTextField.text, description: self.subtitleTextField.text)
+        guard let taskTitle = self.titleTextField.text else { return }
+        presenter?.taskManagerButtonTapped(title: taskTitle, description: self.subtitleTextField.text)
         navigationController?.popToRootViewController(animated: true)
     }
 }

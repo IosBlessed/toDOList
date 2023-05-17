@@ -12,14 +12,14 @@ class TaskManagerBuilder {
     static let shared = TaskManagerBuilder()
 
     func buildTaskManager(with task: TaskItem? = nil) -> TaskManagerViewController {
-        let storage = (UIApplication.shared.delegate as? AppDelegate)!.storage
+        let storage = DataService.shared as DataServiceInterface
         let taskManagerVC = TaskManagerViewController(
             nibName: String(describing: TaskManagerViewController.self),
             bundle: nil
         )
         let taskManagerPresenter = TaskManagerPresenter(
             view: taskManagerVC,
-            storage: storage,
+            dataService: storage,
             task: task
         )
         taskManagerVC.presenter = taskManagerPresenter

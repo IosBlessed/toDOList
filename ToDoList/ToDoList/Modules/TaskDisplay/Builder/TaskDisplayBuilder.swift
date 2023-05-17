@@ -11,7 +11,8 @@ final class TaskDisplayBuilder {
     static let shared = TaskDisplayBuilder()
 
     func buildTaskDisplay() -> TaskDisplayViewController {
-        let storage = DataService.shared as DataServiceInterface
+        let persistanceContainer = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer
+        let storage = DataService(persistentContainer: persistanceContainer)
         let taskDisplayVC = TaskDisplayViewController(
             nibName: String(describing: TaskDisplayViewController.self),
             bundle: nil

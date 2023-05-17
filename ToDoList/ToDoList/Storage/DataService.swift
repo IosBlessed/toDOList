@@ -8,21 +8,22 @@ import CoreData
 import UIKit
 
 class DataService: DataServiceInterface {
-    
-    static let shared = DataService()
+
+    private let persistentContainer: NSPersistentContainer!
     private let storageContext: NSManagedObjectContext!
     private var storageTasks = [TaskListItem]()
-    
-    private init() {
-        storageContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+
+    init(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
+        self.storageContext = persistentContainer.viewContext
     }
 
-    func addTaskToCoreData(title: String, description: String?) {
+    func addTaskToCoreData(task: TaskItem) {
         guard let context = storageContext else { return }
         let task = TaskListItem(context: context)
-        task.title = title
-        task.subtitle = description
-        task.actionTime = Date()
+        task.title = task.title
+        task.subtitle = task.description
+        task.actionTime = task.actionTime
         task.isActive = true
         self.saveContext()
     }
@@ -37,12 +38,12 @@ class DataService: DataServiceInterface {
             return nil
         }
     }
-    
+
     private func extractTasksFromStorage() {
         guard let tasks = getCoreDataTasks() else { return }
         storageTasks = tasks
     }
-    
+
     func getSections(for tasks: [TaskItem]) -> [TaskStatus] {
         var sections: [TaskStatus] = []
         for status in TaskStatus.allCases {
@@ -52,7 +53,7 @@ class DataService: DataServiceInterface {
         }
         return sections
     }
-    
+
     func changeStatusOfStoragedTask(for task: TaskItem, with newStatus: TaskStatus) {
         guard let taskIndex = getIndexOfActionTask(task: task)
         else { return }
@@ -60,7 +61,7 @@ class DataService: DataServiceInterface {
             storageTasks[taskIndex].actionTime = Date()
         self.saveContext()
     }
-    
+
     func removeTask(task: TaskItem) {
         guard let taskIndex = getIndexOfActionTask(task: task) else { return }
         storageContext.delete(storageTasks[taskIndex])
@@ -73,19 +74,19 @@ class DataService: DataServiceInterface {
         storageTasks[taskIndex].actionTime = Date()
         saveContext()
     }
-    
+
     func rearrangeCoreDataTasks(source: Int, target: Int) {
         extractTasksFromStorage()
         storageTasks.swapAt(source, target)
         reassignTaskActionDate()
     }
-    
+
     private func getIndexOfActionTask(task: TaskItem) -> Int? {
         extractTasksFromStorage()
         guard let indexOfModified = (storageTasks.firstIndex { $0.actionTime == task.actionTime }) else { return nil }
         return indexOfModified
     }
-    
+
     private func saveContext() {
         do {
             try storageContext.save()
@@ -93,7 +94,7 @@ class DataService: DataServiceInterface {
             print(error.localizedDescription)
         }
     }
-    
+
     func reassignTaskActionDate() {
         for task in storageTasks.reversed() {
             task.actionTime = Date()

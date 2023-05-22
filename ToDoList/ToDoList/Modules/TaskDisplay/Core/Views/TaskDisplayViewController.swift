@@ -5,6 +5,7 @@
 //  Created by Никита Данилович on 04.05.2023.
 //
 import UIKit
+import SwiftUI
 
 final class TaskDisplayViewController: UIViewController, TaskDisplayViewControllerInterface {
 
@@ -29,12 +30,17 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         let dataSource = TaskTableViewDataSource(
             tableView: tasksTableView,
             presenter: presenter
-        ) { (tableView, _, taskItem) in
+        ) { (tableView, indexPath, taskItem) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
-            cell?.setupCell(task: taskItem)
-            cell?.closureButtonStatusPressed = { [weak self] in
-                guard let self else { return }
-                self.presenter?.processTaskRowUserAction(for: taskItem, action: .switchStatus)
+            let section = self.sections[indexPath.section]
+            guard let tasksBySection = self.presenter?.getTasksBySection(status: section) else { return nil }
+            let taskIsLast = tasksBySection.count - 1 == indexPath.row
+            if #available(iOS 16.0, *) {
+                cell?.contentConfiguration = UIHostingConfiguration {
+                    TaskCellView(taskItem: taskItem, presenterDelegate: self.presenter, taskIsLast: taskIsLast)
+                }
+            } else {
+                cell?.setupCell(task: taskItem, isLast: taskIsLast)
             }
             return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
         }
@@ -95,6 +101,7 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     
     func setTableViewToEditingMode(perform status: Bool) {
         tasksTableView.setEditing(status, animated: true)
+        updateTableViewDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -247,15 +254,6 @@ extension TaskDisplayViewController: UITableViewDelegate {
         let section = sections[section].localizedTitle()
         headerView?.initializeHeaderFooterSection(with: section)
         return headerView
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as? TaskTableViewCell
-        let section = sections[indexPath.section]
-        guard let tasks = presenter?.getTasksBySection(status: section) else { return }
-        let task = tasks[indexPath.row]
-        cell?.isLast = indexPath.row == tasks.count - 1
-        cell?.setupCell(task: task)
     }
     
     func tableView(

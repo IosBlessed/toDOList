@@ -26,8 +26,14 @@ enum TaskStatus: String, CaseIterable {
 }
 
 struct TaskItem: Hashable {
-    var status: TaskStatus = .active
+    var status: TaskStatus
     var title: String
     var description: String?
     var actionTime: Date
+    init(status: TaskStatus = .active, title: String, description: String? = nil, actionTime: Date = Date()) {
+        self.status = status
+        self.title = title
+        self.description = description
+        self.actionTime = actionTime
+    }
 }

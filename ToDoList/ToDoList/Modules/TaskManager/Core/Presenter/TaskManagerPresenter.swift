@@ -53,7 +53,8 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     }
     
     private func addTaskToStorage(title: String, description: String?) {
-        dataService.addTaskToCoreData(title: title, description: description)
+        let task = TaskItem(title: title, description: description, actionTime: Date())
+        dataService.addTaskToCoreData(task: task)
     }
         
     private func editTask(task: TaskItem, newTitle: String, newDescription: String?) {

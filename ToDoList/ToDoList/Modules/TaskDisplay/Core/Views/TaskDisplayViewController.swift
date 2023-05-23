@@ -25,6 +25,21 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
         }
     }
     private var sections = [TaskStatus]()
+    private lazy var tasksDataSource: TaskTableViewDataSource = {
+        let dataSource = TaskTableViewDataSource(
+            tableView: tasksTableView,
+            presenter: presenter
+        ) { (tableView, _, taskItem) in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
+            cell?.setupCell(task: taskItem)
+            cell?.closureButtonStatusPressed = { [weak self] in
+                guard let self else { return }
+                self.presenter?.processTaskRowUserAction(for: taskItem, action: .switchStatus)
+            }
+            return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
+        }
+        return dataSource
+    }()
     private lazy var customViewForRightBarButton: UIView = {
         let customView = UIView(frame: .zero)
         guard
@@ -99,9 +114,6 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
 
     private func setupNavigationBar() {
         title = TaskDisplayLocalization.navigationTitle
-        navigationController?.navigationBar.tintColor = DesignedSystemColors.textPrimary
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.extendedLayoutIncludesOpaqueBars = true
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -119,9 +131,8 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
             TaskTableViewHeaderFooterView.self,
             forHeaderFooterViewReuseIdentifier: TaskTableViewHeaderFooterView.identifier
         )
-        tasksTableView.dataSource = self
         tasksTableView.delegate = self
-
+        
         let imageView = UIImageView(image: UIImage(named: "tableViewBackground.png"))
         imageView.contentMode = .scaleAspectFit
         tasksTableView.backgroundColor = DesignedSystemColors.primary
@@ -178,7 +189,17 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     func updateTasksList(tasks: [TaskItem], sections: [TaskStatus]) {
         self.tasks = tasks
         self.sections = sections
-        self.tasksTableView.reloadData()
+        self.updateTableViewDataSource()
+    }
+    
+    private func updateTableViewDataSource() {
+        var taskSnapshot = NSDiffableDataSourceSnapshot<TaskStatus, TaskItem>()
+        for section in sections {
+           guard let tasks = presenter?.getTasksBySection(status: section) else { return }
+           taskSnapshot.appendSections([section])
+           taskSnapshot.appendItems(tasks, toSection: section)
+        }
+        tasksDataSource.apply(taskSnapshot, animatingDifferences: true)
     }
     
     @IBAction func showAddTaskViewController(_ sender: UIButton) {
@@ -187,11 +208,37 @@ final class TaskDisplayViewController: UIViewController, TaskDisplayViewControll
     }
 }
 
-extension TaskDisplayViewController: UITableViewDelegate {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+final private class TaskTableViewDataSource: UITableViewDiffableDataSource<TaskStatus, TaskItem> {
+    
+    weak var presenterDelegate: TaskDisplayPresenterInterface?
+    
+    init (
+        tableView: UITableView,
+        presenter: TaskDisplayPresenterInterface? = nil,
+        cellProvider: @escaping UITableViewDiffableDataSource<TaskStatus, TaskItem>.CellProvider
+    ) {
+        super.init(tableView: tableView, cellProvider: cellProvider)
+        self.presenterDelegate = presenter
     }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(
+        _ tableView: UITableView,
+        moveRowAt sourceIndexPath: IndexPath,
+        to destinationIndexPath: IndexPath
+    ) {
+        presenterDelegate?.processSwitchingTask(source: sourceIndexPath, destination: destinationIndexPath)
+    }
+}
+
+extension TaskDisplayViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(
@@ -210,45 +257,13 @@ extension TaskDisplayViewController: UITableViewDelegate {
         cell?.isLast = indexPath.row == tasks.count - 1
         cell?.setupCell(task: task)
     }
-}
-
-extension TaskDisplayViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let section = sections[section]
-        let sectionedTasks = presenter?.getTasksBySection(status: section)
-        return sectionedTasks?.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier) as? TaskTableViewCell
-        let section = sections[indexPath.section]
-        let sectionedTasks = presenter?.getTasksBySection(status: section)
-        guard let task = sectionedTasks?[indexPath.row] else { return UITableViewCell(frame: .zero) }
-        cell?.setupCell(task: task)
-        cell?.closureButtonStatusPressed = { [weak self] in
-            self?.presenter?.processTaskRowUserAction(for: task, action: .switchStatus)
-        }
-        return cell ?? UITableViewCell(style: .default, reuseIdentifier: TaskTableViewCell.identifier)
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        presenter?.processSwitchingTask(source: sourceIndexPath, destination: destinationIndexPath)
-    }
     
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let task = tasks[indexPath.row]
+        let taskList = presenter?.getTasksBySection(status: sections[indexPath.section])
+        guard let task = taskList?[indexPath.row] else { return nil }
         let editAction = configureContextualSwipeAction(
             image: UIImage(systemName: "pencil.circle.fill"),
             backgroundColor: DesignedSystemColors.editRowButton
@@ -266,10 +281,9 @@ extension TaskDisplayViewController: UITableViewDataSource {
             ) { userAction in
                 switch userAction {
                 case .delete:
-                    tableView.reloadRows(at: [indexPath], with: .left)
                     self.presenter?.processTaskRowUserAction(for: task, action: .deleteTask)
-                case .leave:
-                    tableView.reloadRows(at: [indexPath], with: .fade)
+                default:
+                    self.updateTableViewDataSource()
                 }
             }
             self.present(alert, animated: true)

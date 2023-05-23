@@ -20,12 +20,14 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     @IBOutlet private weak var titleTextField: UITextField! {
         didSet {
             titleTextField.placeholder = TaskManagerLocalization.titleTextFieldPlaceholder
+            titleTextField.tintColor = DesignedSystemColors.textPrimary
             titleTextField.addTarget(self, action: #selector(userInputText), for: .editingChanged)
         }
     }
     @IBOutlet private weak var subtitleTextField: UITextField! {
         didSet {
             subtitleTextField.placeholder = TaskManagerLocalization.descriptionTextFieldPlaceholder
+            subtitleTextField.tintColor = DesignedSystemColors.textSubtitle
         }
     }
     @IBOutlet private weak var addTaskButton: UIButton! {
@@ -39,7 +41,8 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     private var addTaskBottomConstraint: NSLayoutConstraint!
     private lazy var barButtonCustomView: UIView = {
         let customView = UIView(frame: .zero)
-        customView.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        customView.bounds = CGRect(x: 0, y: 0, width: 80, height: 30)
+        customView.backgroundColor = .clear
         return customView
     }()
     private lazy var barButtonImageView: UIImageView = {
@@ -84,8 +87,8 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
         presenter?.assignRoleToTaskManager()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         configureBarButtonItemView()
     }
 
@@ -166,7 +169,7 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
     private func configureBarButtonItemView() {
         barButtonCustomView.addSubview(barButtonTitleLabel)
         barButtonCustomView.addSubview(barButtonImageView)
-
+        
         barButtonTitleLabel.topAnchor.constraint(
             equalTo: barButtonCustomView.topAnchor,
             constant: 5
@@ -175,23 +178,24 @@ class TaskManagerViewController: UIViewController, TaskManagerViewControllerInte
             equalTo: barButtonCustomView.trailingAnchor,
             constant: -5
         ).isActive = true
-        barButtonTitleLabel.widthAnchor.constraint(
-            equalToConstant: 50
-        ).isActive = true
         barButtonTitleLabel.bottomAnchor.constraint(
             equalTo: barButtonCustomView.bottomAnchor,
             constant: -5
         ).isActive = true
-
+        barButtonTitleLabel.widthAnchor.constraint(
+            equalToConstant: 50
+        ).isActive = true
+    
         barButtonImageView.centerYAnchor.constraint(
             equalTo: barButtonTitleLabel.centerYAnchor
+        ).isActive = true
+        barButtonImageView.leadingAnchor.constraint(
+            equalTo: barButtonCustomView.leadingAnchor,
+            constant: 5
         ).isActive = true
         barButtonImageView.trailingAnchor.constraint(
             equalTo: barButtonTitleLabel.leadingAnchor,
             constant: -5
-        ).isActive = true
-        barButtonImageView.widthAnchor.constraint(
-            equalToConstant: 15
         ).isActive = true
         barButtonImageView.heightAnchor.constraint(
             equalToConstant: 15

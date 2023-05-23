@@ -46,7 +46,6 @@ final class TaskManagerPresenterTest: XCTestCase {
             ToDoErrors.unableToAddTaskToStorage.rawValue
         )
         print("✅ Test for adding task passed successfully!")
-        task = nil
     }
     
     func testUpdateTask() {

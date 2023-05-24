@@ -11,19 +11,8 @@ class TaskManagerBuilder {
 
     static let shared = TaskManagerBuilder()
 
-    func buildTaskManager(with task: TaskItem? = nil) -> TaskManagerViewController {
-        let persistentContainer = CoreDataStack.shared.persistentContainer!
-        let storage = DataService(persistentContainer: persistentContainer)
-        let taskManagerVC = TaskManagerViewController(
-            nibName: String(describing: TaskManagerViewController.self),
-            bundle: nil
-        )
-        let taskManagerPresenter = TaskManagerPresenter(
-            view: taskManagerVC,
-            dataService: storage,
-            task: task
-        )
-        taskManagerVC.presenter = taskManagerPresenter
-        return taskManagerVC
+    func buildTaskManager(with task: TaskItem? = nil) -> TaskManagerSwiftViewController {
+
+        return TaskManagerSwiftViewController()
     }
 }

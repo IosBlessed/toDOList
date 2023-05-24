@@ -18,6 +18,7 @@ class DesignedSystemColors {
     static let shared = DesignedSystemColors()
     static let primary = UIColor(named: "primary") ?? UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     static let accent = UIColor(named: "accent") ?? UIColor(red: 0.831, green: 0.31, blue: 0.31, alpha: 1)
+    static let launchScreen = UIColor(named: "launchBackground") ?? UIColor(red: 0, green: 0, blue: 0, alpha: 1)
     static let textPrimary = UIColor(named: "textPrimary") ?? UIColor(red: 0, green: 0, blue: 0, alpha: 1)
     static let textSubtitle = UIColor(named: "textSubtitle") ?? UIColor(red: 0.565, green: 0.565, blue: 0.565, alpha: 1)
     static let contrast = UIColor(named: "contrast") ?? UIColor(red: 0.942, green: 0.942, blue: 0.942, alpha: 1)

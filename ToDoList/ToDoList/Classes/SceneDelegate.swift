@@ -21,7 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let taskNavigationController = UINavigationController(
             rootViewController: taskViewController
         )
-        window.rootViewController = taskNavigationController
+        let launchScreen = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
+        launchScreen?.view.backgroundColor = DesignedSystemColors.launchScreen
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            window.rootViewController = taskNavigationController
+        }
+        window.rootViewController = launchScreen
         window.makeKeyAndVisible()
         self.window = window
     }

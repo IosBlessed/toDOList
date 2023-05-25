@@ -69,7 +69,6 @@ struct TaskManagerView: View {
         if #available(iOS 15.0, *) {
             VStack {
                 HStack {
-                    TextField("Enter valid title...", text: <#T##Binding<String>#>)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: 150)

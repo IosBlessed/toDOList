@@ -5,8 +5,9 @@
 //  Created by Никита Данилович on 04.05.2023.
 //
 import UIKit
+import SwiftUI
 
-class TaskTableViewCell: UITableViewCell {
+final class TaskTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var titleAndDescription: UIStackView!
     @IBOutlet private weak var taskTitle: UILabel!
@@ -32,7 +33,6 @@ class TaskTableViewCell: UITableViewCell {
             separatorView.layer.cornerRadius = Constants.taskTableViewSeparatorCornerRadius
         }
     }
-    var isLast: Bool = false
     var closureButtonStatusPressed: () -> Void = { }
     private var task: TaskItem!
     static let nib: UINib = {
@@ -48,7 +48,7 @@ class TaskTableViewCell: UITableViewCell {
         self.backgroundColor = DesignedSystemColors.primary
     }
 
-    func setupCell(task: TaskItem) {
+    func setupCell(task: TaskItem, isLast: Bool) {
         self.task = task
         setupItemsBasedOnStatus()
         separatorView.isHidden = isLast
@@ -93,5 +93,67 @@ class TaskTableViewCell: UITableViewCell {
     
     @IBAction func buttonStatusAction(_ sender: Any) {
         closureButtonStatusPressed()
+    }
+}
+
+@available(iOS 16.0, *)
+struct TaskCellView: View {
+    
+    private var taskItem: TaskItem!
+    private weak var presenterDelegate: TaskDisplayPresenterInterface?
+    private var defaultTitle: AttributedString {
+        var title = AttributedString(taskItem.title)
+        title.font = Font(DesignedSystemFonts.bodyBold)
+        if taskItem.status == .active {
+            title.foregroundColor = Color(DesignedSystemColors.textPrimary)
+        } else {
+            title.foregroundColor = Color(DesignedSystemColors.textSubtitle)
+            title.strikethroughStyle = .single
+        }
+        return title
+    }
+    private let taskIsLast: Bool!
+    
+    init(taskItem: TaskItem, presenterDelegate: TaskDisplayPresenterInterface? = nil, taskIsLast: Bool ) {
+        self.taskItem = taskItem
+        self.presenterDelegate = presenterDelegate
+        self.taskIsLast = taskIsLast
+    }
+    private func statusAction() {
+        presenterDelegate?.processTaskRowUserAction(for: taskItem, action: .switchStatus)
+    }
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Button(action: statusAction) {
+                    Text("")
+                        .padding()
+                }
+                .frame(width: 15, height: 15)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(DesignedSystemColors.accent))
+                }
+                .background {
+                    taskItem.status == .active ? Color.clear : Color(DesignedSystemColors.accent)
+                }
+                .cornerRadius(10)
+                VStack(alignment: .leading) {
+                    Group {
+                        Text(defaultTitle)
+                        if let subtitle = taskItem.description {
+                            Spacer()
+                            Text(subtitle)
+                                .foregroundColor(Color(DesignedSystemColors.textSubtitle))
+                                .font(Font(DesignedSystemFonts.bodyRegular))
+                        }
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+            }
+            if !taskIsLast {
+                Divider()
+            }
+        }
     }
 }

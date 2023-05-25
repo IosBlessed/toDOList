@@ -58,6 +58,7 @@ class TaskManagerPresenter: TaskManagerPresenterInterface {
     }
         
     private func editTask(task: TaskItem, newTitle: String, newDescription: String?) {
+        let newDescription = newDescription == "" ? nil : newDescription
         dataService.editTitleSubtitleTask(task: task, newTitle: newTitle, newDescription: newDescription)
     }
 }

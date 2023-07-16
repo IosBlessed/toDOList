@@ -1,2 +1,2 @@
 # toDOList
-Simple task manager
+Simple task manager which was developed according to the Endava's high standards.
